@@ -11,8 +11,7 @@ import './toast.js';
 import 'flowbite';
 import './wow.js'
 import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
 window.$ = window.jQuery = $;
+window.Alpine = Alpine;
+
 Alpine.start();
-// new WOW().init();

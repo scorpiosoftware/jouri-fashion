@@ -16,3 +16,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.primary-bg {
+    @apply bg-[#9e01a1];
+}
+
+.nav-bar {
+   @apply shadow-xl antialiased font-serif;
+}
+
+.primary-btn {
+    @apply bg-white text-black font-bold;
+}

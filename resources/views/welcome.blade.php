@@ -12,16 +12,12 @@
     <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="{{URL::to('assets-vite/assets/app-DPaHq_65.css')}}">
-    <script href="{{URL::to('assets-vite/assets/app-CnKQ0RRM.js')}}"></script>
-
-
-
     @livewireStyles
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-sans antialiased">
+    
     <div class="">
         @if (Session::has('success'))
             <div id="toast-success" tabindex="-1"
@@ -52,7 +48,7 @@
                 </div>
             </div>
         @endif
-        <livewire:pop-up-card>
+        {{-- <livewire:pop-up-card> --}}
  
             <livewire:add-item-message>
             <div id="toast-cart" tabindex="-1"
@@ -84,7 +80,7 @@
             </div>
             <x-home.navbar :categories="$categories" :carousel="$carousel"  />
             <x-home.speed-dial />
-            <x-home.category :categories="$categories" />
+            {{-- <x-home.category :categories="$categories" /> --}}
             <x-home.carousel :carousel="$carousel" />
 
             @foreach ($productViews as $view)
