@@ -1,19 +1,26 @@
-<footer class="bg-[#ec5793]">
+<footer class="bg-[#9e01a1]">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
-            <div class="mb-6 md:mb-0 ">
-                <a href="" class="flex items-center space-x-2 ">
-                    <span
-                        class="md:text-2xl text-md text-nowrap font-serif px-4 py-2 bg-white text-[#ec5793] border rounded-full">
-                        {{session('lang') == 'en' ? env('APP_NAME') : env('APP_NAME_AR')}}
-                    </span>
+            <div class="md:flex md:items-center mx-auto w-1/2 justify-center gap-8 rounded-md bg-white text-[#ec5793] font-serif p-2 transition-all delay-75 hover:scale-90 wowDiv"
+                data-animation="animate__backInLeft" data-delay="800">
+                <a href="/" class="flex items-center gap-2 group">
+                    @if ($carousel->logo_url)
+                        <div class="w-60 h-full mx-auto overflow-hidden">
+                            <img src="{{ asset('storage/' . $carousel->logo_url) }}" alt="…"
+                                class="w-1/2 mx-auto object-cover">
+                        </div>
+                    @else
+                        <span class="text-xl font-bold tracking-tight   transition-colors">
+                            {{ session('lang') == 'en' ? env('APP_NAME') : env('APP_NAME_AR') }}
+                        </span>
+                    @endif
                 </a>
             </div>
             <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                 <div>
                     <h2 class="mb-6 text-sm font-semibold text-white uppercase">
                         {{ session('lang') == 'en' ? 'Support' : 'الدعم' }}</h2>
-                    <ul class="text-[#ec5793]  font-medium">
+                    <ul class="text-[#9e01a1]  font-medium">
                         <li class="mb-4 bg-white px-1 rounded-md">
                             <a href=""
                                 class="hover:underline">{{ session('lang') == 'en' ? 'About us' : 'حول الشركة' }}</a>
@@ -28,7 +35,7 @@
                 <div>
                     <h2 class="mb-6 text-sm font-semibold  uppercase text-white">
                         {{ session('lang') == 'en' ? 'Legal' : 'القوانين' }}</h2>
-                    <ul class="text-[#ec5793]  font-medium">
+                    <ul class="text-[#9e01a1]  font-medium">
                         <li class="mb-4 bg-white px-1 rounded-md">
                             <a href="/privacy-policy"
                                 class="hover:underline">{{ session('lang') == 'en' ? 'Privacy Policy' : 'سياسة الخصوصية' }}</a>
@@ -43,7 +50,7 @@
                 <div>
                     <h2 class="mb-6 text-sm font-semibold  uppercase text-white">
                         {{ session('lang') == 'en' ? 'Follow us' : 'تابعنا' }}</h2>
-                    <ul class="text-[#ec5793] flex  font-medium bg-white justify-center items-center p-2 bg-opacity-60 rounded-xl">
+                    <ul class="text-[#9e01a1] flex  font-medium bg-white justify-center items-center p-2 bg-opacity-60 rounded-xl">
                         <li class="px-1 rounded-md">
                             <a href="" class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"

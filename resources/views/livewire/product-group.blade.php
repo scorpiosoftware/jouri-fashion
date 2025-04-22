@@ -1,4 +1,4 @@
-<div class="pt-4 max-w-screen-2xl mx-auto bg-[#fce4ec] rounded-md p-4 shadow-xl transform transition-all duration-1000 hover:scale-95 hover:shadow-2xl wowDiv"  data-animation="animate__fadeInDownBig" data-delay="300">
+{{-- <div class="pt-4 max-w-2xl mx-auto bg-transparent rounded-md p-4 shadow-xl hover:shadow-2xl wowDiv"  data-animation="animate__fadeInDownBig" data-delay="300">
     <div class="flex justify-start items-center px-8">
         <div class="flex justify-between items-center space-x-3">
             <div class="font-bold text-2xl text-gray-800">{{ $title }}</div>
@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="border-b-2 border-gray-300 px-8 mt-2"></div>
-    @if($products->count() > 0)
+    @if ($products->count() > 0)
     <div class="relative w-full max-w-screen-2xl mx-auto group">
         <div id="scrollContainer-{{ $products->first()->categories()->first()->id }}" 
              class="flex space-x-4 overflow-x-hidden scroll-smooth p-4"
@@ -43,7 +43,7 @@
         let autoScrollInterval;
         let isHovering = false;
     
-        // Auto-scroll functionality
+ 
         function startAutoScroll() {
             autoScrollInterval = setInterval(() => {
                 if (!isHovering) {
@@ -51,7 +51,7 @@
                     const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
                     
                     if (scrollContainer.scrollLeft >= maxScroll - 6) {
-                        // Smooth reset to start
+                 
                         scrollContainer.scrollTo({
                             left: 0,
                             behavior: 'smooth'
@@ -63,22 +63,22 @@
                         });
                     }
                 }
-            }, 5000); // Adjust interval duration (5000ms = 5 seconds)
+            }, 5000);
         }
     
-        // Pause on hover
+      
         scrollContainer.parentElement.addEventListener('mouseenter', () => {
             isHovering = true;
             clearInterval(autoScrollInterval);
         });
     
-        // Resume on mouse leave
+     
         scrollContainer.parentElement.addEventListener('mouseleave', () => {
             isHovering = false;
             startAutoScroll();
         });
     
-        // Manual scroll handlers
+        
         document.getElementById('nextBtn-{{ $products->first()->categories()->first()->id }}').addEventListener('click', () => {
             clearInterval(autoScrollInterval);
             scrollContainer.scrollBy({ left: itemWidth, behavior: 'smooth' });
@@ -90,7 +90,7 @@
             const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
             
             if (scrollContainer.scrollLeft <= 10) {
-                // Jump to end before scrolling
+               
                 scrollContainer.scrollTo({ left: maxScroll, behavior: 'auto' });
             }
             
@@ -98,14 +98,24 @@
             startAutoScroll();
         });
     
-        // Start auto-scroll initially
+     
         startAutoScroll();
     
-        // Reset scroll position when window resizes
+     
         window.addEventListener('resize', () => {
             scrollContainer.scrollLeft = 0;
         });
     });
     </script>
     @endif
+
+</div> --}}
+
+<div class="md:mx-auto w-full md:max-w-4xl">
+    <div class="font-bold text-2xl text-center mb-4 border bg-slate-100 text-gray-800">{{ $title }}</div>
+    <div class="grid md:grid-cols-3 grid-cols-1  md:gap-y-4 bg-slate-100">
+        @foreach ($products as $item)
+            <livewire:product :item="$item">
+        @endforeach
+    </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="brands-container mx-auto">
+{{-- <div class="brands-container mx-auto">
     <h2 class="brands-title">{{session('lang') == 'en' ? 'Brands' : 'علاماتنا التجارية'}}</h2>
     <div class="brands-slider">
         @foreach ($brands as $brand)
@@ -81,4 +81,15 @@
             isAutoScroll = true;
         });
     </script>
+</div> --}}
+
+<div class="grid md:grid-cols-3 grid-cols-1  gap-4 md:mx-auto md:max-w-xl">
+    @foreach ($brands as $brand)
+        <div >
+            <div class="brand-item md:w-full w-[80%] mx-auto image-container">
+                <div class="skeleton-loader min-h-16"></div>
+                <img class="rounded-xl" src="{{ URL::to('storage/' . $brand->image_url) }}" alt="Brand 1">
+            </div>
+        </div>
+    @endforeach
 </div>

@@ -1,4 +1,4 @@
-<nav class="primary-bg sticky top-0 z-50 wowDiv nav-bar" id="wowDiv" data-animation="animate__fadeInDown"
+<nav class="primary-bg z-50 wowDiv nav-bar" id="wowDiv" data-animation="animate__fadeInDown"
     data-delay="300">
     <div class="max-w-screen-2xl px-4 mx-auto py-4">
         <div class="flex items-center justify-between gap-x-6">
@@ -19,7 +19,6 @@
                             {{ session('lang') == 'en' ? env('APP_NAME') : env('APP_NAME_AR') }}
                         </span>
                     @endif
-
                 </a>
             </div>
             <!-- Mobile Menu Button -->

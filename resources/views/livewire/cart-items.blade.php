@@ -37,7 +37,7 @@
     @if (!empty(session('cart')))
     <div class="pt-10">
         <a href="{{ route('cart.show') }}"
-            class="mb-2 inline-flex items-center justify-center w-full rounded-lg border-2 border-transparent text-black bg-white px-5 py-2.5 text-sm font-medium transition-colors duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-primary-300">
+            class="mb-2 inline-flex items-center justify-center w-full rounded-lg border-2 border-transparent text-white bg-[#9e01a1] px-5 py-2.5 text-sm font-medium transition-colors duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-primary-300">
                {{session('lang') == 'en' ? 'Proceed to Checkout' : 'المتابعة للدفع'}}
         </a>
     </div>

@@ -94,7 +94,7 @@
             <br>
             {{-- <x-home.show-category :categories="$categories" /> --}}
             <br>
-            <x-home.footer />
+            <x-home.footer :carousel="$carousel"/>
     </div>
     </div>
     <x-section.scripts />

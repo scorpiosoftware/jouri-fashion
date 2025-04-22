@@ -1,5 +1,8 @@
 <div id="default-carousel" class="relative w-full h-full z-0 mx-auto wowDiv" data-carousel="slide"
     data-animation="animate__backInUp" data-delay="300">
+    <div class="p-3 rounded-xl shadow-lg bg-[#9e01a1] cursor-pointer absolute md:top-52 top-10 right-10 md:right-52 z-50 transition-all duration-300 hover:scale-110">
+        <a href="/shop" class="text-white font-bold text-base md:text-xl">Shop Now</a>
+    </div>
     <!-- Carousel wrapper -->
     <div class="relative h-32 overflow-hidden rounded-lg md:h-[600px]  mx-auto">
         <!-- Item 1 -->
@@ -51,4 +54,5 @@
             <span class="sr-only">Next</span>
         </span>
     </button>
+   
 </div>
