@@ -338,13 +338,14 @@
                 ],
             ]">
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-10 md:px-0 mt-2">
+        <div class="grid grid-cols-1 md:grid-cols-4  gap-4 px-10 md:px-0 mt-2">
             @if ($products->count() <= 0)
                 <div class="text-center flex items-center justify-center w-full">
                     {{ session('lang') == 'en' ? 'No results found' : 'لم يتم العثور على نتائج' }}</div>
             @endif
             @foreach ($products as $item)
-                <x-home.product :item="$item" />
+                {{-- <x-home.product :item="$item" /> --}}
+                @livewire('product', ['item' => $item])
             @endforeach
 
         </div>

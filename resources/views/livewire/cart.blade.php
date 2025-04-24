@@ -6,9 +6,20 @@
             <span class="sr-only">Cart</span>
             <img class="w-6" src="{{ asset('media/icons/cart.png') }}" alt="Cart">
         </button>
-    
+        <script>
+            window.addEventListener('toast:remove', event => {
+                Swal.fire({
+                    toast: true,
+                    position: 'top',
+                    icon: event.detail.icon || 'success',
+                    title: event.detail.message || 'Item removed!',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            });
+        </script>
         <!-- Dropdown Panel -->
-        <div id="myCartDropdown1"  x-show="openCart" @click="openCart = false"
+        <div id="myCartDropdown1"  x-show="openCart" 
             x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 transform -translate-y-2"
             x-transition:enter-end="opacity-100 transform translate-y-0"

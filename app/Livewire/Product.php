@@ -20,6 +20,10 @@ class Product extends Component
 
             abort(404);
         }
+        $this->dispatch('toast:added', [
+            'message' => 'Product added to cart!',
+            'icon' => 'success'
+        ]);
         $cart = session()->get('cart');
         $price = $product->price;
         $color =  $product->colors->first();
@@ -43,6 +47,7 @@ class Product extends Component
             session()->put('cart', $cart);
             $this->dispatch('refreshCart');
             $this->dispatch('addTocart');
+
             return redirect()->back()->with('message', 'Product added to cart successfully!');
         }
 
