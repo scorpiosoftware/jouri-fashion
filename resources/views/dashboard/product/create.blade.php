@@ -195,7 +195,7 @@
                         </div>
                         <script>
                             new TomSelect('#categories', {
-                                maxItems: 100,
+                                maxItems: 10,
                             });
                         </script>
                     </div>

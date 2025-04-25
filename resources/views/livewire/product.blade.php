@@ -1,4 +1,4 @@
-<div class="product-grid md:w-[250px] w-[350px] group [perspective:1000px]  mx-auto flex-shrink-0 transition-all duration-500 hover:scale-90 "
+<div class="product-grid md:w-[230px] w-[350px] group [perspective:1000px]  mx-auto flex-shrink-0 transition-all duration-500 hover:scale-90 "
     data-animation="animate__backInUp" data-min-delay='300' data-delay="1500">
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

@@ -3,7 +3,7 @@
     <!-- drawer init and toggle -->
     <!-- drawer component -->
 
-    <div id="drawer-disabled-backdrop"
+    {{-- <div id="drawer-disabled-backdrop"
         class="fixed top-0 left-0 z-40 md:hidden h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-[350px] dark:bg-gray-800"
         tabindex="-1" aria-labelledby="drawer-disabled-backdrop-label">
 
@@ -314,16 +314,18 @@
             {{ session('lang') == 'en' ? 'Apply' : 'تأكيد' }}</button>
     </div>
     </form>
-    </div>
-    <div class="md:max-w-4xl pt-4">
-        <div class="text-start md:hidden justify-end p-4 flex">
+    </div> --}}
+    
+    <div class="md:max-w-4xl mx-auto pt-4">
+        {{-- <div class="text-start md:hidden justify-end p-4 flex">
             <button
                 class="p-2 rounded-md bg-white text-[#ec5793] border font-bold transition-all delay-75 hover:text-white hover:bg-[#ec5793]"
                 type="button" data-drawer-target="drawer-disabled-backdrop" data-drawer-show="drawer-disabled-backdrop"
                 data-drawer-backdrop="false" aria-controls="drawer-disabled-backdrop">
                 {{ session('lang') == 'en' ? 'Filter' : 'بحث مفصل' }}
             </button>
-        </div>
+        </div> --}}
+     
         <div class="">
             <livewire:breadcrumb :links="[
                 [
@@ -338,13 +340,16 @@
                 ],
             ]">
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-4  gap-4 px-10 md:px-0 mt-2">
+        @livewire('shop',[
+            'categories'=> \App\Models\Category::all(),
+            
+            ])
+        <div class="grid grid-cols-1 md:grid-cols-4 mx-auto ap-4 md:px-0 mt-2 bg-slate-100">
             @if ($products->count() <= 0)
-                <div class="text-center flex items-center justify-center w-full">
+                <div class="text-center flex items-center justify-center w-full mx-auto">
                     {{ session('lang') == 'en' ? 'No results found' : 'لم يتم العثور على نتائج' }}</div>
             @endif
             @foreach ($products as $item)
-                {{-- <x-home.product :item="$item" /> --}}
                 @livewire('product', ['item' => $item])
             @endforeach
 
