@@ -26,14 +26,13 @@ class ShopController extends Controller
     {
         $inputs = $request->all();
         $request->visit();
-        $products = ListProduct::execute($inputs);
         $categories = ListCategory::execute();
         $brands = Brand::all();
         $sections = StoreSections::all();
         $branches = Branch::all();
         $colors = Color::all();
         $carousel = Carousel::with('images')->first();
-        return view('shop.index', compact('products', 'categories', 'brands', 'inputs', 'carousel','sections','branches','colors'));
+        return view('shop.index', compact( 'categories', 'brands', 'inputs', 'carousel','sections','branches','colors'));
     }
 
     public function addComment(Request $request)
@@ -116,7 +115,7 @@ class ShopController extends Controller
     {
         $inputs = $request->all();
         // dd($inputs);
-        $products = ListProduct::execute($inputs);
+        // $products = ListProduct::execute($inputs);
         $categories = ListCategory::execute();
         $brands = Brand::all();
         $sections = StoreSections::all();
@@ -124,6 +123,6 @@ class ShopController extends Controller
         $branches = Branch::all();
         $carousel = Carousel::with('images')->first();
         $request->visit();
-        return view('shop.index', compact('products', 'categories', 'brands', 'inputs','carousel','sections','branches','colors'));
+        return view('shop.index', compact('categories', 'brands', 'inputs','carousel','sections','branches','colors'));
     }
 }

@@ -77,6 +77,13 @@ class Product extends Component
             return response()->json(['message' => 'Product added to cart successfully!']);
         }
     }
+
+    public function addToWishlist(){
+        $this->dispatch('toast:wishlistAdd', [
+            'message' => 'Product added to wishlist!',
+            'icon' => 'success'
+        ]);
+    }
     public function render()
     {
         return view('livewire.product');

@@ -30,6 +30,10 @@
                 <br>
                 <livewire:product-group :view="$view" :title="$view->name">
             @endforeach
+            @foreach ($productViews as $view)
+            <br>
+            <livewire:product-group :view="$view" :title="$view->name">
+            @endforeach
             <br>
             <x-home.brands :brands="$brands" />
             <br>

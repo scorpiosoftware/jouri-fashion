@@ -19,15 +19,16 @@
                                         </a>
                                         <div class="text-end md:order-4 md:w-32">
                                             <p class="text-base font-bold text-gray-900 dark:text-white">
-                                                {{session('lang') == 'en' ? 'IQD' : 'د.ع'}} {{ $details['price'] }}</p>
+                                                {{ session('lang') == 'en' ? 'IQD' : 'د.ع' }} {{ $details['price'] }}</p>
                                         </div>
 
                                         <div class="text-end md:order-4 md:w-32">
-                                            <a href="{{ route('cart.add',$id) }}" class="text-base font-bold bg-white p-2 rounded-md text-black border-2 hover:text-gray-900">
-                                                {{session('lang') == 'en' ? 'add to cart' : 'اضف الى السلة'}}</a>
+                                            <a href="{{ route('cart.add', $id) }}"
+                                                class="text-base font-bold bg-white p-2 rounded-md text-black border-2 hover:text-gray-900">
+                                                {{ session('lang') == 'en' ? 'add to cart' : 'اضف الى السلة' }}</a>
                                         </div>
                                         <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                                            <a href="{{ route('shop.show',$id) }}"
+                                            <a href="{{ route('shop.show', $id) }}"
                                                 class="text-base font-medium text-gray-900 hover:underline dark:text-white">{{ $details['name'] }}</a>
                                             <div class="flex items-center gap-4">
                                                 <form action="{{ route('wishlist.destroy', $id) }}" method="POST">
@@ -42,7 +43,7 @@
                                                                 stroke-linejoin="round" stroke-width="2"
                                                                 d="M6 18 17.94 6M18 18 6.06 6" />
                                                         </svg>
-                                                        {{session('lang') == 'en' ? 'remove' : 'الغاء'}}
+                                                        {{ session('lang') == 'en' ? 'remove' : 'الغاء' }}
                                                     </button>
                                                 </form>
                                             </div>
@@ -55,5 +56,17 @@
                 </div>
             </div>
         </section>
+    @else
+    <div class="flex flex-col items-center justify-center min-h-[300px] text-center p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Your wishlist is currently empty</h2>
+        <p class="text-gray-600 mb-6">Start exploring and add items you love to your wishlist!</p>
+        <a href="/shop" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+          Continue Shopping
+        </a>
+      </div>
+        @foreach ($productViews as $view)
+            <br>
+            <livewire:product-group :view="$view" :title="$view->name">
+        @endforeach
     @endif
 @endsection

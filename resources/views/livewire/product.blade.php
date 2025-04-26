@@ -63,7 +63,7 @@
                         });
                     </script>
                     <!-- Add to Fav -->
-                    <button id="whishlist-{{ $item->id }}"
+                    <button id="whishlist-{{ $item->id }}" wire:click="addToWishlist"
                         class="w-28 bg-pink-500 text-white text-sm font-semibold rounded-full shadow-md hover:bg-pink-600 hover:scale-105 transition-all duration-300">
                         ❤️ Fav
                     </button>
@@ -80,6 +80,16 @@
                                         }, 0);
                                     }
                                 });
+                            });
+                        });
+                        window.addEventListener('toast:wishlistAdd', event => {
+                            Swal.fire({
+                                toast: true,
+                                position: 'top',
+                                icon: event.detail.icon || 'success',
+                                title: event.detail.message || 'Item added to wishlist!',
+                                showConfirmButton: false,
+                                timer: 3000
                             });
                         });
                     </script>

@@ -1,4 +1,4 @@
-<footer class="bg-[#9e01a1]">
+<footer class="bg-gradient-to-b from-pink-500 via-purple-600 to-white shadow-lg">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
             <div class="md:flex md:items-center mx-auto w-1/2 justify-center gap-8 rounded-md bg-white text-[#ec5793] font-serif p-2 transition-all delay-75 hover:scale-90 wowDiv"
