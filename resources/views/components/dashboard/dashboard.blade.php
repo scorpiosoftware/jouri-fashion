@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-50 w-full bg-[#ec5793] border-b border-gray-200 d:bg-gray-800 d:border-gray-700">
+<nav class="fixed top-0 z-50 w-full bg-white bg-opacity-100 border-b">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start rtl:justify-end">
@@ -13,9 +13,9 @@
                         </path>
                     </svg>
                 </button>
-                {{-- <a href="/" class="flex ms-2 md:me-24">
+                <a href="/" class="flex ms-2 md:me-24">
                     <img src="/media/logo/logo.png" class="h-10 me-3" alt="FlowBite Logo" />
-                </a> --}}
+                </a>
                 <!-- Logo Section -->
                 <div class="flex items-center gap-8 rounded-md bg-white text-[#ec5793] font-serif p-2 transition-all delay-75 hover:scale-90 wowDiv" data-animation="animate__backInLeft" data-delay="800">
                     <a href="/" class="flex items-center gap-2 group">
@@ -79,10 +79,10 @@
 </nav>
 {{-- Dashboard SideBar --}}
 <aside id="logo-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-[#ec5793] border-r border-gray-200 sm:translate-x-0 d:bg-gray-800 d:border-gray-700"
+    class="fixed top-10 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-gradient-to-b from-pink-500 via-purple-600 to-white border-r border-gray-200 sm:translate-x-0 d:bg-gray-800 d:border-gray-700"
     aria-label="Sidebar">
-    <div class="h-full px-3 pb-4 overflow-y-auto bg-[#ec5793] d:bg-gray-800">
-        <ul class="space-y-2 font-medium text-[#ec5793]">
+    <div class="h-full px-3 pb-4 overflow-y-auto bg-gradient-to-b from-pink-500 via-purple-600 to-white d:bg-gray-800">
+        <ul class="space-y-2 font-medium text-black">
             <li class="bg-white rounded-lg">
                 <a href="{{ route('dashboard.index') }}"
                     class="flex items-center p-2  rounded-lg d:text-white hover:bg-gray-100 d:hover:bg-gray-700 group">

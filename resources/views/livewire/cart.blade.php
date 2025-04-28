@@ -26,7 +26,7 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 transform translate-y-0"
             x-transition:leave-end="opacity-0 transform -translate-y-2"
-            class="absolute right-0 mt-2 z-10 w-72 overflow-hidden rounded-lg bg-white p-4 shadow-lg antialiased">
+            class="absolute md:right-0 mt-2 z-50 w-72 overflow-hidden rounded-lg bg-white p-4 shadow-lg antialiased">
             <livewire:cart-items />
         </div>
     </div>

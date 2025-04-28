@@ -83,19 +83,19 @@
                         </div>
                     </div>
                     <div id="gallery"
-                        class="flex gap-4 w-full md:col-start-1 md:col-end-3">
+                        class="grid md:grid-cols-2  items-center  w-full mx-auto gap-4">
                         {{-- Main Image --}}
                         <input class="hidden" type="text" name="image" value="{{ $record->logo_url }}">
                         @if (!empty($record->logo_url))
                         <div class="relative">
-                            <img class="max-w-sm object-cover rounded-lg transition-all delay-100 hover:scale-105"
+                            <img class=" object-cover rounded-lg transition-all delay-100 hover:scale-105"
                                 src="{{ URL::to('storage/' . $record->logo_url) }}" alt="">
                         </div> 
                         @endif
                         {{-- Other Images --}}
                         @foreach ($record->images as $image)
                         <div class="relative">
-                            <img class="max-w-sm rounded-lg transition-all delay-100 hover:scale-105"
+                            <img class=" rounded-lg transition-all delay-100 hover:scale-105"
                                 src="{{ URL::to('storage/' . $image->url) }}" alt="">
                         </div>
                         @endforeach

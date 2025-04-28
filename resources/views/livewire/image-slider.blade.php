@@ -1,5 +1,5 @@
 <div x-data="{ visible: @entangle('show') }" x-init="$watch('visible', value => {
-    if (value) Livewire.emit('swiperUpdated', true);
+    if (value) Livewire.dispatch('swiperUpdated', true);
 })">
     <div x-show="visible" x-transition:enter="transition-opacity ease-out duration-500"
         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
     <style>
         .swiper-slide img {
-            max-height: 800px;
+            max-height: 500px;
         }
     </style>
 @endpush
@@ -57,6 +57,12 @@
         .close-button {
             -webkit-tap-highlight-color: transparent;
              width: 50%;
+        }
+        @media (max-width: 768px) {
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 15%;
+            }
         }
     </style>
 @endpush
@@ -79,7 +85,7 @@
                         swiperInstance = new Swiper('.swiper-container', {
                             loop: true,
                             autoplay: {
-                                delay: 3000,
+                                delay: 1000,
                             },
                             pagination: {
                                 el: '.swiper-pagination',

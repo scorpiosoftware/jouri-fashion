@@ -1,14 +1,15 @@
-<div>
+<div class="w-full max-h-[500px] overflow-y-auto overflow-x-hidden">
     @if (session('cart'))
         @foreach (session('cart') as $id => $details)
-            <div class="grid grid-cols-1 bg-white p-3 rounded-lg transition-all delay-100 hover:scale-90 mb-4 border">
-                <div class="w-full">
+            <div class="grid grid-cols-1 bg-white p-3 rounded-lg transition-all duration-500 hover:scale-95 mb-4 border">
+                <div class="w-full flex items-center gap-4">
+                    <img class="w-12" src="{{ URL::to('storage/'.$details['photo']) }}" alt="">
                     <a href="#"
                         class="truncate text-sm font-semibold leading-none text-black text-wrap hover:underline">{{ $details['name'] }}</a>
-                    <p class="mt-0.5 truncate text-sm font-normal text-black">
-                        د.ع {{ $details['price'] }}</p>
+       
                 </div>
-
+                <p class="mt-0.5 truncate text-sm font-normal text-black">
+                    د.ع {{ $details['price'] }}</p>
                 <div class="flex items-end justify-end gap-6">
                     <p class="text-sm font-normal leading-none text-black">Qty:
                         {{ $details['quantity'] }}</p>

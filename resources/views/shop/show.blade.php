@@ -34,27 +34,67 @@
                     <img id="mainImage" src="{{ URL::to('storage/' . $record->main_image_url) }}"
                         onclick="Livewire.dispatch('openGallery')"
                         class="relative z-10 h-full w-full object-cover transition-all duration-500 ease-out group-hover:scale-105 group-hover:brightness-110"
-                        alt="Main product image">
+                        alt="Main product image" />
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     </div>
                 </div>
                 <!-- Thumbnail Carousel -->
-                <div class="mt-4 max-w-xl mx-auto flex justify-start space-x-4 overflow-x-auto p-2 border bg-white ">
-                    @foreach ($record->images as $image)
-                        <!-- Thumbnail Image -->
-                        <div class="flex-shrink-0 relative group" onclick="Livewire.dispatch('openGallery')">
-                            <img src="{{ URL::to('storage/' . $image->image_url) }}"
-                                class="w-24 h-24 object-cover rounded-lg border-2 border-transparent group-hover:border-[#71C9CE] transition-all duration-200 cursor-zoom-in"
-                                alt="Product thumbnail">
-                            <div
-                                class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg">
+                <div class="relative mt-4 max-w-xl mx-auto">
+                    <!-- Prev button -->
+                    <button id="scrollPrev"
+                        class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow z-10 focus:outline-none">
+                        <!-- Heroicon: chevron-left -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+
+                    <!-- Scrollable container -->
+                    <div id="imageGallery" class="flex gap-4 overflow-x-auto scroll-smooth p-2 border bg-white rounded-lg">
+                        @foreach ($record->images as $image)
+                            <div class="flex-shrink-0 relative group" onclick="Livewire.dispatch('openGallery')">
+                                <img src="{{ URL::to('storage/' . $image->image_url) }}"
+                                    class="w-24 h-24 object-cover rounded-lg border-2 border-transparent group-hover:border-[#71C9CE] transition-all duration-200 cursor-zoom-in"
+                                    alt="Product thumbnail">
+                                <div
+                                    class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg">
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+
+                    <!-- Next button -->
+                    <button id="scrollNext"
+                        class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow z-10 focus:outline-none">
+                        <!-- Heroicon: chevron-right -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
                 </div>
             </div>
+            <script>
+                const gallery = document.getElementById('imageGallery');
+                const style = getComputedStyle(gallery);
+                // offsetWidth of first image + the actual gap value
+                const scrollAmount = gallery.firstElementChild.offsetWidth + parseInt(style.columnGap);
 
+                document.getElementById('scrollPrev').addEventListener('click', () => {
+                    gallery.scrollBy({
+                        left: -scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+                document.getElementById('scrollNext').addEventListener('click', () => {
+                    gallery.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+            </script>
             <!-- Product Info Section -->
             <div class="bg-white p-8 rounded-xl shadow-lg" x-data="{ open: true }">
                 <div class="md:text-4xl text-xl font-bold flex justify-between text-[#2B3467] mb-4" @click="open = !open">
@@ -63,14 +103,10 @@
                     <span class="cursor-pointer" x-show="open">−</span>
                 </div>
 
-                <div x-show="open" 
-                x-transition:enter="transition ease-out duration-500"
-                x-transition:enter-start="opacity-0 scale-95"
-                x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition ease-in duration-300"
-                x-transition:leave-start="opacity-100 scale-100"
-                x-transition:leave-end="opacity-0 scale-95"
-                >
+                <div x-show="open" x-transition:enter="transition ease-out duration-500"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-95">
                     <div class="flex justify-between items-center mb-6">
                         <!-- Rating Badge -->
                         <div class="flex items-center space-x-2 bg-[#F8F5F1] px-4 py-2 rounded-full w-fit">
@@ -187,13 +223,20 @@
         </div>
 
         <!-- Reviews Section -->
-        <div class="mt-16 bg-white p-8 rounded-xl shadow-lg">
-            <h2 class="text-3xl font-bold text-[#2B3467] mb-8">
+        <div class="mt-16 bg-white p-8 rounded-xl shadow-lg" x-data="{ open: true }">
+            {{-- <h2 class="text-3xl font-bold text-[#2B3467] mb-8">
                 {{ session('lang') == 'en' ? 'Customer Reviews' : 'آراء العملاء' }}
-            </h2>
-
+            </h2> --}}
+            <div class="md:text-4xl text-xl font-bold flex justify-between text-[#2B3467] mb-4" @click="open = !open">
+                {{ session('lang') == 'en' ? 'Customer Reviews' : 'آراء العملاء' }}
+                <span class="cursor-pointer" x-show="!open">+</span>
+                <span class="cursor-pointer" x-show="open">−</span>
+            </div>
             <!-- Review Form -->
-            <form action="{{ route('add-review') }}" method="POST" class="mb-12">
+            <form action="{{ route('add-review') }}" method="POST" class="mb-12" x-show="open"
+                x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-300"
+                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
                 @csrf
                 <input type="hidden" name="id" value="{{ $record->id }}">
 

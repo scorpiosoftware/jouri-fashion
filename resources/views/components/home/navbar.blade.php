@@ -121,14 +121,14 @@
 
                         @endauth
                     </div>
-                </div>
+                    </div>
             </div>
         </div>
     </div>
     <div id="mobile-menu" class="lg:hidden mt-4 hidden">
         <div class="pt-4 border-t border-gray-800">
             <!-- Search Form -->
-            <form action="{{ route('filter.products') }}" method="POST"
+            {{-- <form action="{{ route('filter.products') }}" method="POST"
                 class="md:hidden flex flex-1 max-w-2xl  transition-all delay-75 hover:scale-90"
                 data-animation="animate__bounceInDown" data-delay="100">
                 @csrf
@@ -150,33 +150,99 @@
                                rounded-lg transition-colors duration-200 shadow-sm  focus:ring-2 focus:ring-[#5f9e9d] focus:outline-none">
                     {{ session('lang') == 'en' ? 'Search' : 'بحث' }}
                 </button>
-            </form>
+            </form> --}}
+            <div x-data="{ open: false }" class=" md:flex justify-start items-start gap-x-4 ">
+                <button @click="open = !open"
+                    class=" p-2.5 bg-white transition-all w-full mx-auto duration-300 hover:scale-90  rounded-lg ">
+                    <img class="w-6 mx-auto" src="{{ asset('media/icons/menu.png') }}" alt="">
+                </button>
+                <!-- Action Icons -->
+                <div class="flex justify-center items-center gap-4 " x-cloak x-show="open"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform -translate-y-2"
+                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 transform translate-y-0"
+                    x-transition:leave-end="opacity-0 transform -translate-y-2">
+                    <div>
+                        <livewire:cart>
+                    </div>
 
-            <nav class="grid gap-2 mt-2 w-full">
-                @foreach ($categories as $item)
-                    <form action="{{ route('filter.products') }}" method="POST">
-                        @csrf
-                        <input type="hidden" value="{{ $item->id }}" name="categories[]">
-                        <button type="submit"
-                            class="w-full text-left text-white hover:bg-gray-800 rounded-lg 
-                                       transition-colors duration-200 flex items-center gap-x-1">
-                            <span class="flex-1 border p-1">
-                                @if (session('lang') == 'en')
-                                    {!! $item->name_en !!}
-                                @else
-                                    {!! $item->name_ar !!}
+                    <a href="{{ route('wishlist.index') }}"
+                        class="transition-all delay-75 hover:scale-90 p-2.5 bg-white rounded-full duration-200 focus:ring-2 focus:ring-[#5f9e9d] focus:outline-none">
+                        <img class="w-6" src="{{ asset('media/icons/favourite.png') }}" alt="">
+                    </a>
+                    <!-- User Dropdown Container -->
+                    <div class="relative">
+                        <button id="userDropdownButton1" data-dropdown-toggle="userDropdown1"
+                            class="flex items-center gap-2 px-4 py-2 bg-white rounded-full 
+                                   transition-colors duration-200 group focus:ring-2 focus:ring-[#5f9e9d] focus:outline-none">
+                            <img class="w-6" src="{{ asset('media/icons/user.png') }}" alt="">
+                            <span class="text-sm font-medium text-black">
+                                @auth{{ Auth::user()->name }}
+                            @else
+                            {{ session('lang') == 'en' ? 'Account' : 'الحساب' }} @endauth
+                        </span>
+                        <svg class="w-4 h-4 text-[#ec5793] transition-colors" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div id="userDropdown1"
+                        class="hidden absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-xl 
+                border border-gray-200 divide-y divide-gray-100 z-50 origin-top-right p-2.5
+                transition-opacity duration-200">
+                        @guest
+                            <div class="py-1 grid gap-y-2">
+                                <a href="{{ route('login') }}"
+                                    class="block px-4 py-2.5 text-sm border
+                          transition-colors">
+                                    {{ session('lang') == 'en' ? 'login' : 'تسجيل دخول' }}
+                                </a>
+                                <a href="{{ route('register') }}"
+                                    class="block px-4 py-2.5 text-sm border
+                          transition-colors">
+                                    {{ session('lang') == 'en' ? 'sign up' : 'انشاء حساب' }}
+                                </a>
+                            </div>
+                        @endguest
+
+                        @auth
+                            <div class="py-2 grid gap-y-2">
+                                @if (Auth::user()->role_id == 1)
+                                    <a href="{{ route('dashboard.index') }}"
+                                        class="block px-4 py-2.5 text-sm bg-white text-black border
+                          transition-colors">
+                                        <i
+                                            class="fas fa-tachometer-alt mr-2"></i>{{ session('lang') == 'en' ? 'Dashboard' : 'لوحة التحكم' }}
+                                    </a>
                                 @endif
-                            </span>
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
-                    </form>
-                @endforeach
-            </nav>
-            <div class="md:hidden block mt-4">
+                                <a href="#"
+                                    class="block px-4 py-2.5 text-sm bg-white text-black border
+                          transition-colors">
+                                    <i
+                                        class="fas fa-user-circle mr-2"></i>{{ session('lang') == 'en' ? 'Profile' : 'الملف الشخصي' }}
+                                </a>
+                            </div>
+                            <div class="py-1">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full text-left px-4 py-2.5 text-sm bg-white text-black border transition-colors">
+                                        <i
+                                            class="fas fa-sign-out-alt mr-2"></i>{{ session('lang') == 'en' ? 'Sign out' : 'تسجيل خروج' }}
+                                    </button>
+                                </form>
+                            </div>
+
+                        @endauth
+                    </div>
+                    </div>
+            </div>
+        </div>
+            <div class="md:hidden flex justify-center mt-4">
                 <livewire:language>
             </div>
         </div>
