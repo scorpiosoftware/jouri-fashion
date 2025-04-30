@@ -20,8 +20,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> --}}
     <!-- Scripts -->
-    {{-- <link rel="stylesheet" href="{{URL::to('assets-vite/assets/app-DPaHq_65.css')}}">
-    <script href="{{URL::to('assets-vite/assets/app-CnKQ0RRM.js')}}"></script> --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
