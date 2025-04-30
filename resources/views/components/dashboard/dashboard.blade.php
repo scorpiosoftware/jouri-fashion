@@ -17,14 +17,14 @@
                     <img src="/media/logo/logo.png" class="h-10 me-3" alt="FlowBite Logo" />
                 </a>
                 <!-- Logo Section -->
-                <div class="flex items-center gap-8 rounded-md bg-white text-[#ec5793] font-serif p-2 transition-all delay-75 hover:scale-90 wowDiv" data-animation="animate__backInLeft" data-delay="800">
+                {{-- <div class="flex items-center gap-8 rounded-md bg-white text-[#ec5793] font-serif p-2 transition-all delay-75 hover:scale-90 wowDiv" data-animation="animate__backInLeft" data-delay="800">
                     <a href="/" class="flex items-center gap-2 group">
                         <span
                             class="text-xl font-bold tracking-tight   transition-colors">
                             {{ env('APP_NAME') }}
                         </span>
                     </a>
-                </div>
+                </div> --}}
             </div>
             <livewire:language>
             {{-- Profile DropDown --}}
