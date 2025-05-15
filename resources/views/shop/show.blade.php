@@ -177,14 +177,43 @@
                     <!-- Add to Cart Section -->
                     <form action="{{ route('cart.add', $record->id) }}" method="GET" class="space-y-6">
                         @csrf
-                        <div class="flex justify-start items-center space-x-4 mb-4 ">
-                            @foreach ($record->colors as $color)
-                                <input type="radio" name="color" value="{{ $color->id }}" required
-                                    class="rounded-full box-border size-10 p-2 hover:border hove bg-[{!! $color->hex_code !!}]"
-                                    style="background-color: {!! $color->hex_code !!}"
-                                    {{ $color->id == $record->colors->first()->id ? 'checked' : '' }} />
-                            @endforeach
+                        <div class="grid grid-cols-2 gap-4 w-1/4 border p-2 rounded-md shadow-lg">
+                            <div>
+                                <div class="mb-2">
+                                    <label
+                                        for="size">{{ session('lang') == 'en' ? 'Pick Color' : 'اختر اللون' }}</label>
+                                </div>
+                                <div class="flex justify-start items-center space-x-4 mb-4 ">
+                                    @foreach ($record->colors as $color)
+                                        <input type="radio" name="color" value="{{ $color->id }}" required
+                                            class="rounded-full box-border size-6 p-2 hover:border hove bg-[{!! $color->hex_code !!}]"
+                                            style="background-color: {!! $color->hex_code !!}"
+                                            {{ $color->id == $record->colors->first()->id ? 'checked' : '' }} />
+                                    @endforeach
+                                </div>
+
+                            </div>
+                            <div>
+                                <div>
+                                    <label for="size">{{ session('lang') == 'en' ? 'Pick Size' : 'اختر قياس' }}</label>
+                                </div>
+                                <div class="flex justify-start items-center px-2 space-x-4 mb-4 ">
+                                    @foreach ($record->sizes as $size)
+                                        <div class="flex items-center space-x-2 mt-2 ">
+                                            
+                                                <label for="size">{{ $size->name }}</label>
+                                            
+
+                                            <input type="radio" name="size" value="{{ $size->id }}" required
+                                                class="rounded-full box-border size-6 p-2 hover:border hove bg-[{!! $size->hex_code !!}]"
+                                                {{ $size->id == $record->sizes->first()->id ? 'checked' : '' }} />
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
+
+
                         <div class="md:flex items-center md:space-x-4">
                             <div class=" flex justify-center items-center border rounded-lg overflow-hidden">
                                 <button type="button"

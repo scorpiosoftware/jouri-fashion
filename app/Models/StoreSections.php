@@ -12,7 +12,7 @@ class StoreSections extends Model
 
 
     public function products():HasMany{
-       return $this->hasMany(Product::class);
+       return $this->hasMany(Product::class,'section_id');
     }
 
     public function branches():HasMany{

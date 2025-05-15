@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ ENV('APP_NAME') }}</title>
-    <link rel="icon" href="{{ URL::to('media/logo/jamesia.png') }}">
+    <link rel="icon" href="{{ URL::to('media/logo/logo.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -30,10 +30,6 @@
                 <br>
                 <livewire:product-group :view="$view" :title="$view->name">
             @endforeach
-            {{-- @foreach ($productViews as $view)
-            <br>
-            <livewire:product-group :view="$view" :title="$view->name">
-            @endforeach --}}
             <br>
             <x-home.brands :brands="$brands" />
             <br>

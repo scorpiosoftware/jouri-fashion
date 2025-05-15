@@ -7,11 +7,29 @@
         <a name="{{ $item->id }}" href="{{ route('shop.show', $item->id) }}" class="image block">
             <div class="box-border">
 
-                <img src="{{ URL::to('storage/' . $item->main_image_url) }}" class="w-full  p-3 object-cover">
+                <img data-src="{{ URL::to('storage/' . $item->main_image_url) }}"  class="w-full lazy  p-3 object-cover">
             </div>
 
         </a>
-
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const images = document.querySelectorAll("img.lazy");
+              const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+              
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    console.log(img.src);
+                    img.classList.remove("lazy");
+                    obs.unobserve(img);
+                  }
+                });
+              });
+          
+              images.forEach(img => observer.observe(img));
+            });
+          </script>
 
         <div
             class="absolute top-0 opacity-0 transition-opacity duration-300 hover:opacity-100 w-full h-full text-center content-center">
@@ -48,7 +66,7 @@
                     <!-- Add to Cart -->
                     <button id="p-item-{{ $item->id }}" wire:click="addToCart({{ $item->id }})"
                         class="w-28 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white text-sm font-semibold rounded-lg shadow-md hover:from-indigo-700 hover:to-indigo-600 hover:scale-105 transition-all duration-300">
-                        🛒 Cart
+                        🛒 {{ session('lang') == 'en' ? 'Cart' : 'السلة' }}
                     </button>
                     <script>
                         window.addEventListener('toast:added', event => {
@@ -65,7 +83,7 @@
                     <!-- Add to Fav -->
                     <button id="whishlist-{{ $item->id }}" wire:click="addToWishlist"
                         class="w-28 bg-pink-500 text-white text-sm font-semibold rounded-full shadow-md hover:bg-pink-600 hover:scale-105 transition-all duration-300">
-                        ❤️ Fav
+                        ❤️ {{ session('lang') == 'en' ? 'Fav' : 'المفضل' }}
                     </button>
                     <script>
                         $(document).ready(function() {
@@ -96,7 +114,7 @@
                     <!-- View Item -->
                     <button
                         class="w-28 border border-gray-400 text-gray-700 text-sm font-semibold rounded-lg shadow-sm hover:bg-gray-100 hover:scale-105 transition-all duration-300">
-                        <a href="{{ route('shop.show', $item->id) }}">🔍 View</a>
+                        <a href="{{ route('shop.show', $item->id) }}">🔍 {{ session('lang') == 'en' ? 'View' : 'عرض' }}</a>
                     </button>
                 </div>
             </div>

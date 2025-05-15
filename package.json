@@ -18,11 +18,14 @@
     },
     "dependencies": {
         "animate.css": "^4.1.1",
+        "browser-image-compression": "^2.0.2",
         "ckeditor4": "^4.24.0",
         "ckeditor5": "^44.2.1",
         "ckeditor5-premium-features": "^44.2.1",
         "jquery": "^3.7.1",
-        "sweetalert2": "^11.19.1",
+        "laravel-echo": "^2.1.0",
+        "pusher-js": "^8.4.0",
+        "sweetalert2": "^11.21.0",
         "wowjs": "^1.1.3"
     }
 }

@@ -9,9 +9,7 @@ use Livewire\Component;
 class Product extends Component
 {
     public $item;
-    public function mount() {
-
-    }
+    public function mount() {}
 
     public function addToCart($id)
     {
@@ -27,6 +25,7 @@ class Product extends Component
         $cart = session()->get('cart');
         $price = $product->price;
         $color =  $product->colors->first();
+        $size =  $product->sizes->first();
         if (!empty($product->offer_price) || $product->offer_price > 0) {
             $price = $product->offer_price;
         }
@@ -38,6 +37,7 @@ class Product extends Component
                     "quantity" => 0,
                     "price" => $price,
                     "color" => $color,
+                    "size" => $size,
                     "photo" => $product->main_image_url
                 ]
             ];
@@ -52,8 +52,8 @@ class Product extends Component
         }
 
         if (isset($cart[$id])) {
-                $cart[$id]['quantity']++;
-                $cart[$id]['price'] = $cart[$id]['quantity'] * $price;
+            $cart[$id]['quantity']++;
+            $cart[$id]['price'] = $cart[$id]['quantity'] * $price;
             session()->put('cart', $cart);
             $this->dispatch('refreshCart');
             $this->dispatch('addTocart');
@@ -65,6 +65,7 @@ class Product extends Component
             "quantity" => 1,
             "price" => $price,
             "color" => $color,
+            "size" => $size,
             "photo" => $product->main_image_url
         ];
 
@@ -78,7 +79,8 @@ class Product extends Component
         }
     }
 
-    public function addToWishlist(){
+    public function addToWishlist()
+    {
         $this->dispatch('toast:wishlistAdd', [
             'message' => 'Product added to wishlist!',
             'icon' => 'success'
