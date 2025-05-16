@@ -22,7 +22,7 @@ class CarouselView extends Component
     public $imgs = [];
     protected $rules = [
         'logo_url' => 'nullable|image',
-        'imgs.*' => 'file|max:102400',
+        'imgs.*' => 'image|max:102400',
     ];
     // Add this method to debug file uploads
 
