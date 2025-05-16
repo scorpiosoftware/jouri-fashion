@@ -21,7 +21,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.15.0/dist/echo.iife.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!-- Scripts -->
@@ -41,22 +40,6 @@
             </div>
         </main>
     </div>
-    <script>
-        // Configure Laravel Echo
-        window.Echo = new Echo({
-            broadcaster: 'pusher',
-            key: '{{ env('PUSHER_APP_KEY') }}',
-            cluster: '{{ env('PUSHER_APP_CLUSTER', 'mt1') }}',
-            forceTLS: true
-        });
-
-        // Example usage: Listen to notifications for logged in admin user
-        Echo.private('App.Models.User.{{ auth()->id() }}')
-            .notification((notification) => {
-                console.log('📩 New notification:', notification);
-                // You can update your inbox UI here, or show a toast, etc.
-            });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     @livewireScripts
 </body>
