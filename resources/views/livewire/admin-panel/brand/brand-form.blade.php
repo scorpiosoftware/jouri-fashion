@@ -18,7 +18,8 @@
                         placeholder= "" />
                 </div>
                 <div class="grid grid-cols-1 gap-4 border-2 p-4">
-                    <img class="max-w-full w-96 rounded-lg" src="{{ URL::to('storage/' . $record?->image_url) }}"
+                    
+                    <img class="max-w-full w-96 rounded-lg" src="{{$record ? URL::to( 'storage/' . $record->image_url ) : '' }}"
                         alt="">
                     <div>
                         <div class="flex justify-between items-center">
