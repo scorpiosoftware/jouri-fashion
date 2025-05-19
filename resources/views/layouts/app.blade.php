@@ -23,13 +23,18 @@
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+
+
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100" >
+    <div class="min-h-screen bg-gray-100">
         <x-dashboard.dashboard />
         <!-- Page Content -->
         <main>
@@ -41,6 +46,8 @@
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+
     @livewireScripts
 </body>
 

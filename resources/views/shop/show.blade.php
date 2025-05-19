@@ -177,7 +177,7 @@
                     <!-- Add to Cart Section -->
                     <form action="{{ route('cart.add', $record->id) }}" method="GET" class="space-y-6">
                         @csrf
-                        <div class="grid grid-cols-2 gap-4 w-1/4 border p-2 rounded-md shadow-lg">
+                        <div class="flex justify-center  items-center gap-4 max-w-2xl mx-auto border p-2 rounded-md shadow-lg">
                             <div>
                                 <div class="mb-2">
                                     <label

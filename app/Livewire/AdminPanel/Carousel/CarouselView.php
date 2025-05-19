@@ -8,8 +8,7 @@ use App\Actions\StoreMedia;
 use App\Models\Carousel;
 use App\Models\CarouselImage;
 use Illuminate\Container\Attributes\Log;
-use Illuminate\Container\Attributes\Storage;
-use Illuminate\Support\Facades\Storage as FacadesStorage;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -20,23 +19,22 @@ class CarouselView extends Component
     public $record;
     public $logo_url;
     public $imgs = [];
-    protected $rules = [
-        'logo_url' => 'nullable|image',
-        'imgs.*' => 'image|max:102400',
-    ];
-    // Add this method to debug file uploads
 
+    // Add this method to debug file uploads
     #[On('save')]
     public function save()
     {
-        $this->validate();
         // Debug before processing
 
         // add new image and delete old
         if (!empty($this->logo_url)) {
-            $path = $this->logo_url->storePublicly('carousel', 'public');
+            $path = StoreMedia::execute(
+                $this->logo_url,
+                'carousel/' . $this->record->id . '/logo',
+                'public'
+            );
             if ($this->record->logo_url) {
-                FacadesStorage::disk('public')->delete($this->record->logo_url);
+                Storage::disk('public')->delete($this->record->logo_url);
             }
             $this->record->logo_url =  $path;
             $this->record->save();
@@ -52,14 +50,16 @@ class CarouselView extends Component
             // add other product images
             foreach ($this->imgs as $imageFile) {
                 $image = new CarouselImage();
-                $path = $imageFile->storePublicly('carousel/' . $this->record->id . '', 'public');
+                $path = StoreMedia::execute(
+                    $imageFile,
+                    'carousel/' . $this->record->id . '',
+                    'public'
+                );
                 $image->url = $path;
                 $image->carousel_id = $this->record->id;
                 $image->save();
             }
         }
-
-        // $this->reset();
 
         $this->dispatch('record-created', [
             'title' => 'Success!',
