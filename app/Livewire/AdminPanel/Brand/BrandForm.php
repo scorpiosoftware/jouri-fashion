@@ -2,6 +2,7 @@
 
 namespace App\Livewire\AdminPanel\Brand;
 
+use App\Actions\StoreMedia;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -13,11 +14,20 @@ class BrandForm extends Component
     public $record;
     public $path;
     public $form = [];
+    public $files = [];
+
 
     public $image_url;
+    protected $listeners = ['fileUploaded'];
 
+    public function fileUploaded($file)
+    {
+        dd($file);
+        $this->files[] = $file;
+    }
     public function mount()
     {
+        $this->files = [];
         if (!empty($this->record)) {
             $this->form = [
                 'name_en' => $this->record->name_en,
@@ -26,16 +36,32 @@ class BrandForm extends Component
             $this->path = $this->record->image_url;
         }
     }
+
+    public function saveFiles()
+    {
+        dd($this->files);
+        foreach ($this->files as $file) {
+            $file->store('uploads', 'public');
+        }
+
+        $this->reset('files');
+        session()->flash('message', 'Files uploaded successfully!');
+    }
+
     public function save()
     {
-        $this->validate([
-            'form.name_en' => 'required',
-            'form.name_ar' => 'required',
-            'image_url' => 'nullable|image',
-        ]);
+        // $this->validate([
+        //     'form.name_en' => 'required',
+        //     'form.name_ar' => 'required',
+        //     // 'image_url' => 'nullable|image',
+        // ]);
         // add new image and delete old
         if (!empty($this->image_url)) {
-            $this->path = $this->image_url->storePublicly('brands', 'public');
+            $this->path =  StoreMedia::execute(
+                $this->image_url,
+                'brands/',
+                'public'
+            );
             if ($this->record) {
                 if ($this->record->image_url) {
                     Storage::disk('public')->delete($this->record->image_url);
