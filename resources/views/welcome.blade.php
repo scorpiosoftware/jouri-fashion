@@ -21,7 +21,7 @@
     
     <div class="">
       
- 
+ <livewire:pop-up-card />
             <x-home.navbar :categories="$categories" :carousel="$carousel"  />
             <x-home.speed-dial />
             <x-home.carousel :carousel="$carousel" />

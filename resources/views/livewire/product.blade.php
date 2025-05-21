@@ -5,9 +5,9 @@
 
     <div class="product-image">
         <a name="{{ $item->id }}" href="{{ route('shop.show', $item->id) }}" class="image block">
-            <div class="box-border">
+            <div class="box-border" wire:ignore>
 
-                <img data-src="{{ URL::to('storage/' . $item->main_image_url) }}"  class="w-full lazy  p-3 object-cover">
+                <img wire:ignore data-src="{{ URL::to('storage/' . $item->main_image_url) }}"  class="w-full lazy p-3 object-cover">
             </div>
 
         </a>

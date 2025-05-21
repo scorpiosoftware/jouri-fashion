@@ -39,7 +39,7 @@
                     <div class="flex space-x-2 md:justify-between justify-start items-center">
                         <input type="number" step="any" min="0"
                             class="w-24 h-[2.2rem] rounded-sm border-gray-300" name="min_price" wire:model='minPrice'
-                            wire:change="dispatch('apply')" placeholder="" />
+                            wire:change="dispatch('apply')" placeholder=""/>
                         <input type="number" step="any" min="0"
                             class="w-24 h-[2.2rem] rounded-sm border-gray-300" name="max_price" wire:model='maxPrice'
                             wire:change="dispatch('apply')" placeholder="" />

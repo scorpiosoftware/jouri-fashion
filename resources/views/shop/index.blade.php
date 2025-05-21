@@ -16,6 +16,8 @@
 
             @livewire('shop', [
                 'categories' => \App\Models\Category::all(),
+                'minPrice' => $inputs['min_price'] ?? null,
+                'maxPrice' => $inputs['max_price'] ?? null,
             ])
 
     </div>
