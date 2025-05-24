@@ -1,4 +1,4 @@
-<div class="">
+<div class="max-w-6xl mx-auto">
     <div class="w-full mx-auto bg-slate-100 mt-2  text-black" wire:ignore>
         <div class="md:flex grid grid-cols-1 justify-center p-3 items-center md:space-x-4">
             <div class="">
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="bg-slate-100 h-screen">
+    <div class="bg-white">
         @if ($products?->count() <= 0)
             <div class="text-center flex items-center justify-center w-full mx-auto">
                 {{ session('lang') == 'en' ? 'No results found' : 'لم يتم العثور على نتائج' }} </div>
@@ -65,15 +65,19 @@
                 x-transition:enter="transition ease-out duration-1000 delay-100"
                 x-transition:enter-start="opacity-0 scale-75 translate-y-8"
                 x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                class="grid grid-cols-1 md:grid-cols-4 mx-auto ap-4 md:px-0 mt-2">
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mx-auto p-4 md:px-0 mt-2">
                 @foreach ($products as $item)
-                    @livewire('product', ['item' => $item], key($item->id))
+                    <div class="w-full">
+                        @livewire('product', ['item' => $item], key($item->id))
+                    </div>
                 @endforeach
             </div>
 
 
         @endisset
     </div>
+        <!-- Quick View Modal -->
+        <livewire:quick-view-product />
 </div>
 @script
     <script>

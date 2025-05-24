@@ -1,177 +1,105 @@
-<div class="product-grid md:w-[230px] w-[350px] group [perspective:1000px]  mx-auto flex-shrink-0 transition-all duration-500 hover:scale-90 "
+<div class="product-grid w-[350px]  max-w-[350px] group [perspective:1000px] mx-auto flex-shrink-0 transition-all duration-500"
     data-animation="animate__backInUp" data-min-delay='300' data-delay="1500">
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-    <div class="product-image">
-        <a name="{{ $item->id }}" href="{{ route('shop.show', $item->id) }}" class="image block">
-            <div class="box-border" wire:ignore>
-
-                <img wire:ignore data-src="{{ URL::to('storage/' . $item->main_image_url) }}"  class="w-full lazy p-3 object-cover">
-            </div>
-
-        </a>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-              const images = document.querySelectorAll("img.lazy");
-              const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                  if (entry.isIntersecting) {
-              
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    console.log(img.src);
-                    img.classList.remove("lazy");
-                    obs.unobserve(img);
-                  }
-                });
-              });
-          
-              images.forEach(img => observer.observe(img));
+    <!-- SweetAlert Event Listeners -->
+    <script>
+        window.addEventListener('toast:added', event => {
+            Swal.fire({
+                toast: true,
+                position: 'top',
+                icon: event.detail.icon || 'success',
+                title: event.detail.message || 'Item added to cart!',
+                showConfirmButton: false,
+                timer: 3000
             });
-          </script>
+        });
 
-        <div
-            class="absolute top-0 opacity-0 transition-opacity duration-300 hover:opacity-100 w-full h-full text-center content-center">
-            <div
-                class="product-content flex flex-col items-center bg-white bg-opacity-25   rounded-2xl shadow-lg p-4 hover:shadow-xl transition-all duration-300 hover:scale-110">
+        window.addEventListener('toast:wishlistAdd', event => {
+            Swal.fire({
+                toast: true,
+                position: 'top',
+                icon: event.detail.icon || 'success',
+                title: event.detail.message || 'Item added to wishlist!',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        });
+    </script>
 
-                <!-- Product Name -->
-                <a href="#"
-                    class="line-clamp-3 text-center text-lg md:text-xl font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-200">
-                    @if (session('lang') == 'en')
-                        {{ $item->name_en }}
-                    @else
-                        {{ $item->name_ar }}
-                    @endif
-                </a>
-
-                <!-- Pricing -->
-                <div class="flex items-center gap-3 mt-4">
-                    <!-- Original Price -->
-                    <span
-                        class="@if (!empty($item->offer_price)) line-through text-red-600 @else text-indigo-600 @endif text-base md:text-lg font-bold">
-                        {{ session('lang') == 'en' ? 'IQD' : 'د.ع' }} {{ $item->price }}
-                    </span>
-
-                    <!-- Offer Price -->
-                    @if (!empty($item->offer_price))
-                        <span
-                            class="bg-green-100 text-green-800 text-sm md:text-base font-bold px-2 py-1 rounded-xl shadow-sm">
-                            {{ session('lang') == 'en' ? 'IQD' : 'د.ع' }} {{ $item->offer_price }}
-                        </span>
-                    @endif
+    <div
+        class="product-image w-[350px] h-[350px] relative [transform-style:preserve-3d] transition-transform duration-500 group-hover:[transform:rotateY(180deg)]">
+        <!-- Front of card -->
+        <div class="absolute inset-0 w-full h-full [backface-visibility:hidden]">
+            <a name="{{ $item->id }}" href="{{ route('shop.show', $item->id) }}" class="image block w-full h-full">
+                <div class="box-border w-[350px] h-[350px] overflow-hidden flex items-center justify-center">
+                    <img src="{{ URL::to('storage/' . $item->main_image_url) }}"
+                        class="max-w-full max-h-full p-3 object-contain bg-white" alt="{{ $item->name }}">
                 </div>
-                <div class="grid grid-cols-1 mx-auto w-full justify-items-center gap-3 justify-center mt-2">
-                    <!-- Add to Cart -->
-                    <button id="p-item-{{ $item->id }}" wire:click="addToCart({{ $item->id }})"
-                        class="w-28 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white text-sm font-semibold rounded-lg shadow-md hover:from-indigo-700 hover:to-indigo-600 hover:scale-105 transition-all duration-300">
-                        🛒 {{ session('lang') == 'en' ? 'Cart' : 'السلة' }}
-                    </button>
-                    <script>
-                        window.addEventListener('toast:added', event => {
-                            Swal.fire({
-                                toast: true,
-                                position: 'top',
-                                icon: event.detail.icon || 'success',
-                                title: event.detail.message || 'Item added to cart!',
-                                showConfirmButton: false,
-                                timer: 3000
-                            });
-                        });
-                    </script>
-                    <!-- Add to Fav -->
-                    <button id="whishlist-{{ $item->id }}" wire:click="addToWishlist"
-                        class="w-28 bg-pink-500 text-white text-sm font-semibold rounded-full shadow-md hover:bg-pink-600 hover:scale-105 transition-all duration-300">
-                        ❤️ {{ session('lang') == 'en' ? 'Fav' : 'المفضل' }}
-                    </button>
-                    <script>
-                        $(document).ready(function() {
-                            $("#whishlist-{{ $item->id }}").click(function() {
-                                $.ajax({
-                                    url: "{{ route('wishlist.add', $item->id) }}",
-                                    type: "GET",
-                                    success: function(response) {
-                                        setTimeout(function() {
-                                            $("#ico-{{ $item->id }}").addClass("text-red-600");
-                                            $('#toast-cart').show();
-                                        }, 0);
-                                    }
-                                });
-                            });
-                        });
-                        window.addEventListener('toast:wishlistAdd', event => {
-                            Swal.fire({
-                                toast: true,
-                                position: 'top',
-                                icon: event.detail.icon || 'success',
-                                title: event.detail.message || 'Item added to wishlist!',
-                                showConfirmButton: false,
-                                timer: 3000
-                            });
-                        });
-                    </script>
-                    <!-- View Item -->
-                    <button
-                        class="w-28 border border-gray-400 text-gray-700 text-sm font-semibold rounded-lg shadow-sm hover:bg-gray-100 hover:scale-105 transition-all duration-300">
-                        <a href="{{ route('shop.show', $item->id) }}">🔍 {{ session('lang') == 'en' ? 'View' : 'عرض' }}</a>
-                    </button>
+            </a>
+        </div>
+
+        <!-- Back of card -->
+        <div
+            class="absolute inset-0 flex items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
+            <div class="w-[200px] h-[300px]">
+                <div
+                    class="product-content flex flex-col items-center justify-between bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-4 h-full border border-gray-100">
+                    <!-- Product Name -->
+                    <a href="#"
+                        class="line-clamp-2 text-center text-base font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-200">
+                        @if (session('lang') == 'en')
+                            {{ $item->name_en }}
+                        @else
+                            {{ $item->name_ar }}
+                        @endif
+                    </a>
+
+                    <!-- Pricing -->
+                    <div class="flex flex-col items-center gap-2 mt-2">
+                        <!-- Original Price -->
+                        <span
+                            class="@if (!empty($item->offer_price)) line-through text-red-600 @else text-indigo-600 @endif text-sm font-bold">
+                            {{ session('lang') == 'en' ? 'IQD' : 'د.ع' }} {{ $item->price }}
+                        </span>
+
+                        <!-- Offer Price -->
+                        @if (!empty($item->offer_price))
+                            <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-xl shadow-sm">
+                                {{ session('lang') == 'en' ? 'IQD' : 'د.ع' }} {{ $item->offer_price }}
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="grid grid-cols-1 mx-auto w-full justify-items-center gap-2 justify-center mt-2">
+                        <!-- Quick View Button -->
+                        <button wire:click="$dispatch('openQuickView', { productId: {{ $item->id }} })"
+                            class="w-full bg-gradient-to-r from-blue-500 to-blue-400 text-white text-xs font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-500 hover:scale-105 transition-all duration-300 py-1.5">
+                            👁️ {{ session('lang') == 'en' ? 'Quick View' : 'نظرة سريعة' }}
+                        </button>
+
+                        <!-- Add to Cart -->
+                        <button id="p-item-{{ $item->id }}" wire:click="addToCart({{ $item->id }})"
+                            class="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 text-white text-xs font-semibold rounded-lg shadow-md hover:from-indigo-700 hover:to-indigo-600 hover:scale-105 transition-all duration-300 py-1.5">
+                            🛒 {{ session('lang') == 'en' ? 'Add to Cart' : 'أضف إلى السلة' }}
+                        </button>
+
+                        <!-- Add to Fav -->
+                        <button id="whishlist-{{ $item->id }}" wire:click="addToWishlist"
+                            class="w-full bg-gradient-to-r from-pink-500 to-pink-400 text-white text-xs font-semibold rounded-lg shadow-md hover:from-pink-600 hover:to-pink-500 hover:scale-105 transition-all duration-300 py-1.5">
+                            ❤️ {{ session('lang') == 'en' ? 'Add to Favorites' : 'أضف إلى المفضلة' }}
+                        </button>
+
+                        <!-- View Item -->
+                        <button
+                            class="w-full border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg shadow-sm hover:bg-gray-50 hover:scale-105 transition-all duration-300 py-1.5">
+                            <a href="{{ route('shop.show', $item->id) }}">🔍
+                                {{ session('lang') == 'en' ? 'View Details' : 'عرض التفاصيل' }}</a>
+                        </button>
+                    </div>
                 </div>
             </div>
-
-
-
-            {{-- <ul class="product-links flex  space-x-2 items-center justify-center relative z-50">
-                <li>
-                    <a id="p-item-{{ $item->id }}" wire:click="addToCart({{ $item->id }})"
-                        class="custom-toast.success-toast" data-tip="Add to Cart">
-                        <img class="w-6" src="{{ asset('media/icons/cart.png') }}" alt="">
-                    </a>
-                </li>
-                <script>
-                    $("#p-item-{{ $item->id }}").click(function() {
-                        $('#cart-message').show(500);
-                    });
-                </script>
-
-
-                <li class="">
-                    <a id="whishlist-{{ $item->id }}" data-tip="Add to Wishlist">
-                        <i id="ico-{{ $item->id }}"
-                            class="fa fa-heart 
-                            @if (session('wishlist')) @foreach (session('wishlist') as $id => $details)
-                                    @if ($details['name'] == $item->name_en)
-                                        text-red-600
-                                        @break @endif
-                                @endforeach
-                            @endif"></i>
-
-
-                    </a>
-                    <script>
-                        $(document).ready(function() {
-                            $("#whishlist-{{ $item->id }}").click(function() {
-                                $.ajax({
-                                    url: "{{ route('wishlist.add', $item->id) }}",
-                                    type: "GET",
-                                    success: function(response) {
-                                        setTimeout(function() {
-                                            $("#ico-{{ $item->id }}").addClass("text-red-600");
-                                            $('#toast-cart').show();
-                                        }, 0);
-                                    }
-                                });
-                            });
-                        });
-                    </script>
-                </li>
-
-                <li>
-                    <a href="{{ route('shop.show', $item->id) }}" data-tip="Quick View">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </li>
-            </ul> --}}
         </div>
     </div>
 </div>

@@ -6,16 +6,17 @@
                 <livewire:language>
             </div>
             <!-- Logo Section -->
-            <div class="md:flex md:items-center mx-auto w-1/2 justify-center gap-8 rounded-md bg-white text-[#ec5793] font-serif p-2 transition-all delay-75 hover:scale-90 wowDiv"
-                data-animation="animate__backInLeft" data-delay="800">
-                <a href="/" class="flex items-center gap-2 group">
+            <div class="md:flex md:items-center mx-auto w-1/2 justify-center">
+                <a href="/" class="flex items-center gap-2 group relative overflow-hidden bg-white backdrop-blur-sm rounded-lg px-4 py-2 shadow-sm">
                     @if ($carousel->logo_url)
-                        <div class="w-60 h-full mx-auto overflow-hidden">
-                            <img src="{{ asset('storage/' . $carousel->logo_url) }}" alt="…"
-                                class="w-1/2 mx-auto object-cover">
+                        <div class="w-60 h-16 mx-auto overflow-hidden transition-all duration-300 hover:scale-105">
+                            <img src="{{ asset('storage/' . $carousel->logo_url) }}" 
+                                alt="{{ session('lang') == 'en' ? env('APP_NAME') : env('APP_NAME_AR') }}"
+                                class="w-full h-full object-contain transform transition-transform duration-300 hover:scale-110"
+                                loading="eager">
                         </div>
                     @else
-                        <span class="text-xl font-bold tracking-tight   transition-colors">
+                        <span class="text-2xl font-bold tracking-tight text-[#ec5793] transition-all duration-300 hover:text-purple-600">
                             {{ session('lang') == 'en' ? env('APP_NAME') : env('APP_NAME_AR') }}
                         </span>
                     @endif
@@ -52,14 +53,18 @@
 
                     <a href="{{ route('wishlist.index') }}"
                         class="transition-all delay-75 hover:scale-90 p-2.5 bg-white rounded-full duration-200 focus:ring-2 focus:ring-[#5f9e9d] focus:outline-none">
-                        <img class="w-6" src="{{ asset('media/icons/favourite.png') }}" alt="">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#ec5793]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
                     </a>
                     <!-- User Dropdown Container -->
                     <div class="relative">
                         <button id="userDropdownButton" data-dropdown-toggle="userDropdown"
                             class="flex items-center gap-2 px-4 py-2 bg-white rounded-full 
                                    transition-colors duration-200 group focus:ring-2 focus:ring-[#5f9e9d] focus:outline-none">
-                            <img class="w-6" src="{{ asset('media/icons/user.png') }}" alt="">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#ec5793]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
                             <span class="text-sm font-medium text-black">
                                 @auth{{ Auth::user()->name }}
                             @else
@@ -170,14 +175,18 @@
 
                     <a href="{{ route('wishlist.index') }}"
                         class="transition-all delay-75 hover:scale-90 p-2.5 bg-white rounded-full duration-200 focus:ring-2 focus:ring-[#5f9e9d] focus:outline-none">
-                        <img class="w-6" src="{{ asset('media/icons/favourite.png') }}" alt="">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#ec5793]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
                     </a>
                     <!-- User Dropdown Container -->
                     <div class="relative">
                         <button id="userDropdownButton1" data-dropdown-toggle="userDropdown1"
                             class="flex items-center gap-2 px-4 py-2 bg-white rounded-full 
                                    transition-colors duration-200 group focus:ring-2 focus:ring-[#5f9e9d] focus:outline-none">
-                            <img class="w-6" src="{{ asset('media/icons/user.png') }}" alt="">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#ec5793]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
                             <span class="text-sm font-medium text-black">
                                 @auth{{ Auth::user()->name }}
                             @else

@@ -2,35 +2,63 @@
 
 namespace App\Livewire;
 
-use App\Models\Product as ModelsProduct;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Log;
-use Livewire\Attributes\On;
 use Livewire\Component;
+use App\Models\Product;
+use Livewire\Attributes\On;
 
-class Product extends Component
+class QuickViewProduct extends Component
 {
-    public $item;
-    public function mount() {}
+    public $product;
+    public $showModal = false;
+    public $selectedImage;
+    public $quantity = 1;
 
+    protected $listeners = ['openQuickView'];
 
-    public function addToCart($id, $quantity = 1)
+    public function openQuickView($productId)
     {
-        \Log::info('addToCart called', [
-            'id' => $id,
-            'quantity' => $quantity,
-            'time' => now()->toDateTimeString()
-        ]);
-        
-        $product = ModelsProduct::find($id);
+        $this->product = Product::find($productId);
+        $this->selectedImage = $this->product->main_image_url;
+        $this->showModal = true;
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
+        $this->reset(['product', 'selectedImage', 'quantity']);
+    }
+
+    public function selectImage($imageUrl)
+    {
+        $this->selectedImage = $imageUrl;
+    }
+
+    public function incrementQuantity()
+    {
+        $this->quantity++;
+    }
+
+    public function decrementQuantity()
+    {
+        if ($this->quantity > 1) {
+            $this->quantity--;
+        }
+    }
+
+    #[On('add-item-to-cart')]
+    public function addItemToCart($id, $quantity = 1)
+    {    
+        $product =Product::find($id);
         if (!$product) {
             abort(404);
         }
         
+        // Add to cart logic here
         $this->dispatch('toast:added', [
-            'message' => 'Product added to cart!',
+            'message' => session('lang') == 'en' ? 'Product added to cart!' : 'تمت إضافة المنتج إلى السلة!',
             'icon' => 'success'
         ]);
+       
         
         $cart = session()->get('cart');
         $price = $product->price;
@@ -81,18 +109,12 @@ class Product extends Component
         session()->put('cart', $cart);
         $this->dispatch('refreshCart');
         $this->dispatch('addTocart');
+        $this->closeModal();
         return null;
     }
 
-    public function addToWishlist()
-    {
-        $this->dispatch('toast:wishlistAdd', [
-            'message' => 'Product added to wishlist!',
-            'icon' => 'success'
-        ]);
-    }
     public function render()
     {
-        return view('livewire.product');
+        return view('livewire.quick-view-product');
     }
 }

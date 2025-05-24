@@ -2,40 +2,40 @@
 
 namespace App\Livewire;
 
-use App\Models\Product as ModelsProduct;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Log;
-use Livewire\Attributes\On;
+use App\Models\Product;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
-class Product extends Component
+class ProductDetails extends Component
 {
-    public $item;
-    public function mount() {}
+    public $record;
+    public $quantity = 1;
+    public $selectedColor;
+    public $selectedSize;
 
-
-    public function addToCart($id, $quantity = 1)
+    public function mount($record)
     {
-        \Log::info('addToCart called', [
-            'id' => $id,
-            'quantity' => $quantity,
-            'time' => now()->toDateTimeString()
-        ]);
-        
-        $product = ModelsProduct::find($id);
+        $this->record = $record;
+        $this->selectedColor = $record->colors->first()?->id;
+        $this->selectedSize = $record->sizes->first()?->id;
+    }
+
+    public function addToCart()
+    {
+        $product = Product::find($this->record->id);
         if (!$product) {
             abort(404);
         }
         
         $this->dispatch('toast:added', [
-            'message' => 'Product added to cart!',
+            'message' => session('lang') == 'en' ? 'Product added to cart!' : 'تمت إضافة المنتج إلى السلة!',
             'icon' => 'success'
         ]);
         
         $cart = session()->get('cart');
         $price = $product->price;
-        $color = $product->colors->first();
-        $size = $product->sizes->first();
+        $color = $product->colors->where('id', $this->selectedColor)->first();
+        $size = $product->sizes->where('id', $this->selectedSize)->first();
         
         if (!empty($product->offer_price) || $product->offer_price > 0) {
             $price = $product->offer_price;
@@ -45,10 +45,10 @@ class Product extends Component
         
         if (!$cart) {
             $cart = [
-                $id => [
+                $this->record->id => [
                     "name" => $p_name,
-                    "quantity" => (int)$quantity,
-                    "price" => $price * (int)$quantity,
+                    "quantity" => (int)$this->quantity,
+                    "price" => $price * (int)$this->quantity,
                     "color" => $color,
                     "size" => $size,
                     "photo" => $product->main_image_url
@@ -60,19 +60,19 @@ class Product extends Component
             return null;
         }
 
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity'] = (int)$cart[$id]['quantity'] + (int)$quantity;
-            $cart[$id]['price'] = $cart[$id]['quantity'] * $price;
+        if (isset($cart[$this->record->id])) {
+            $cart[$this->record->id]['quantity'] = (int)$cart[$this->record->id]['quantity'] + (int)$this->quantity;
+            $cart[$this->record->id]['price'] = $cart[$this->record->id]['quantity'] * $price;
             session()->put('cart', $cart);
             $this->dispatch('refreshCart');
             $this->dispatch('addTocart');
             return null;
         }
 
-        $cart[$id] = [
+        $cart[$this->record->id] = [
             "name" => $p_name,
-            "quantity" => (int)$quantity,
-            "price" => $price * (int)$quantity,
+            "quantity" => (int)$this->quantity,
+            "price" => $price * (int)$this->quantity,
             "color" => $color,
             "size" => $size,
             "photo" => $product->main_image_url
@@ -81,18 +81,10 @@ class Product extends Component
         session()->put('cart', $cart);
         $this->dispatch('refreshCart');
         $this->dispatch('addTocart');
-        return null;
     }
 
-    public function addToWishlist()
-    {
-        $this->dispatch('toast:wishlistAdd', [
-            'message' => 'Product added to wishlist!',
-            'icon' => 'success'
-        ]);
-    }
     public function render()
     {
-        return view('livewire.product');
+        return view('livewire.product-details');
     }
 }
