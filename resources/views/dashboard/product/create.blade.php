@@ -163,7 +163,7 @@
                 </div>
                 <div class="w-full">
                     <label for="sizes"
-                        class="block mb-2 text-sm font-medium text-gray-900 d:text-white">{{ session('lang') == 'en' ? 'sizes' : 'الاصناف' }}</label>
+                        class="block mb-2 text-sm font-medium text-gray-900 d:text-white">{{ session('lang') == 'en' ? 'sizes' : 'المقاسات' }}</label>
                     <div class="relative flex w-full">
                         <select id="sizes" name="sizes[]" multiple placeholder="..." autocomplete="off"
                             class="block w-full rounded-sm cursor-pointer focus:outline-none" multiple>

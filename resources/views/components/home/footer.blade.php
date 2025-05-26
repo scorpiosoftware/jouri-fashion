@@ -1,4 +1,4 @@
-<footer class="relative bg-gradient-to-b from-pink-500 via-purple-600 to-white shadow-lg overflow-hidden">
+<footer class="relative bg-[#9e01a1] shadow-lg overflow-hidden">
     <!-- Animated background elements -->
     <div class="absolute inset-0 overflow-hidden">
         <div class="absolute -top-40 -left-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>

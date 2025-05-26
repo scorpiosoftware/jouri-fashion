@@ -37,7 +37,7 @@
         <div class="text-2xl font-extralight pt-3 ">
             {{session('lang') == 'en' ? 'Cash on Delivery' : 'الدفع عند الاستلام'}}
         </div>
-        <form action="{{ route('order.store') }}" method="POST" class=" md:mx-0 mx-auto md:px-0 px-4 pt-4 pb-4">
+        <form action="{{ route('order.store') }}" method="POST" class="md:mx-0 mx-auto md:px-0 px-4 pt-4 pb-4 shadow-lg">
             @csrf
             @method('POST')
             <div class="relative z-0 w-full mb-5 group">
@@ -76,7 +76,7 @@
                         placeholder=" " required />
                     <label for="apartment"
                         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                         {{session('lang') == 'en' ? 'Apartment , suite , etc.' : 'شقة، جناح، الخ.'}}</label>
+                         {{session('lang') == 'en' ? 'Province' : 'المحافظة'}}</label>
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
                     <select required
@@ -88,18 +88,6 @@
                         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                         {{session('lang') == 'en' ? 'Country' : 'الدولة'}}</label>
                 </div>
-
-                {{-- <div class="relative z-0 w-full mb-5 group hidden">
-                    <input type="text" name="zip" id="zip"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder="" required />
-                    <label for="zip"
-                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                        Zip Code</label>
-                </div> --}}
-
-
-                
             </div>
             <div class="relative z-0 w-full mb-5 group">
                 <input type="text" name="city" id="city"
@@ -109,35 +97,10 @@
                     class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                     {{session('lang') == 'en' ? 'City - State - province' : 'المدينة - الولاية - المقاطعة'}}</label>
             </div>
-            {{-- <div class="flex justify-start items-center">
-                <button onclick="myFunction()" type="button" class="bg-white px-2.5 rounded-lg text-center text-black border-2">    {{session('lang') == 'en' ? 'Add Email' : 'اضافة بريد الكتروني'}}</label> <span class="text-xl font-bold rounded-full">+</span></button>
-  
-            </div>
-            <div class=" pb-4">
- 
-                <div id="div_email" class="relative z-0 w-full mb-5 group hidden">
-                    <input type="email" name="email" id="email"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" " />
-                    <label for="email"
-                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                       {{session('lang') == 'en' ? 'Add Email' : 'اضافة بريد الكتروني'}}</label>
-                </div>
-                <script>
-                    function myFunction() {
-                        var element = document.getElementById("div_email");
-                        element.classList.toggle("hidden");
-                    }
-                </script>
-            </div> --}}
             <div class="md:flex md:justify-end w-full">
                 <button type="submit"
-                    class="text-black bg-whiet border-2 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "> {{session('lang') == 'en' ? 'Proceed' : 'تأكيد'}}</button>
-
+                    class="text-white bg-[#9e01a1] transition-all duration-300 hover:scale-105 border-2 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "> {{session('lang') == 'en' ? 'Proceed by whatsapp' : 'تأكيد عبر واتساب'}}</button>
             </div>
-
         </form>
-
-
     </div>
 @endsection

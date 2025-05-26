@@ -2,7 +2,7 @@
         <div class="grid gap-6 mb-6 md:grid-cols-1">
             <div class="grid grid-cols-1 gap-4 border-2 p-4 md:grid-cols-2">
                 <div>
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 d:text-white">{{session('lang') == 'en' ? 'name' : 'الاسم'}}</label>
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 d:text-white">{{session('lang') == 'en' ? 'name' : 'الاسم الجنبي'}}</label>
                     <input type="text" id="name" value="" name="name" wire:model='form.name'
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 d:bg-gray-700 d:border-gray-600 d:placeholder-gray-400 d:text-white d:focus:ring-blue-500 d:focus:border-blue-500"
                         placeholder="" />
@@ -21,7 +21,7 @@
                         @foreach ($sections as $section)
                             <option value="{{ $section->id }}"  @isset($selectedSectionId)
                                 {{$selectedSectionId == $section->id ? 'selected' : ''}}
-                            @endisset>{{ $section->name }}</option>
+                            @endisset>{{session('lang') == 'en' ? $section->name : $section->name_ar}}</option>
                         @endforeach
                     </select>
                 </div>

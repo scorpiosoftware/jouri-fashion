@@ -1,4 +1,4 @@
-<nav class="bg-gradient-to-b from-pink-500 via-purple-600 to-white shadow-lg z-50 wowDiv nav-bar" id="wowDiv" data-animation="animate__fadeInDown"
+<nav class="bg-[#9e01a1] shadow-lg z-50 wowDiv nav-bar" id="wowDiv" data-animation="animate__fadeInDown"
     data-delay="300">
     <div class="max-w-screen-2xl px-4 mx-auto py-4">
         <div class="flex items-center justify-between gap-x-6">

@@ -80,8 +80,8 @@
 </nav>
 {{-- Dashboard SideBar --}}
 <aside
-    class="fixed top-10 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-gradient-to-b from-pink-500 via-purple-600 to-white border-r border-gray-200 sm:translate-x-0 d:bg-gray-800 d:border-gray-700">
-    <div class="h-full px-3 pb-4 overflow-y-auto bg-gradient-to-b from-pink-500 via-purple-600 to-white d:bg-gray-800">
+    class="fixed top-10 z-40 w-64 h-screen pt-20 transition-transform duration-300 -translate-x-full bg-gradient-to-b from-pink-500 via-purple-600 to-white border-r border-gray-200 sm:translate-x-0 d:bg-gray-800 d:border-gray-700 shadow-lg">
+    <div class="h-full px-3 pb-4 overflow-y-auto bg-gradient-to-b from-pink-500 via-purple-600 to-white d:bg-gray-800 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-400 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-gray-500">
         <ul class="space-y-2 font-medium text-black">
             <li class="bg-white rounded-lg">
                 <a href="{{ route('dashboard.index') }}" wire:navigate
@@ -134,10 +134,10 @@
                     <span class="ms-3">{{ session('lang') == 'en' ? 'Product Views' : 'عرض المنتجات' }}</span>
                 </a>
             </li>
-            <li x-data="{ open: true }" class="bg-white rounded-lg" x-transition>
+            <li x-data="{ open: false }" class="bg-white rounded-lg">
                 <button type="button" @click="open = !open"
-                    class="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group hover:bg-gray-100">
-                    <svg class="flex-shrink-0 w-5 h-5 transition duration-75 group-hover:text-gray-900"
+                    class="flex items-center w-full p-2 text-base transition duration-200 rounded-lg group hover:bg-gray-100">
+                    <svg class="flex-shrink-0 w-5 h-5 transition duration-200 group-hover:text-gray-900"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                         viewBox="0 0 18 21">
                         <path
@@ -145,55 +145,71 @@
                     </svg>
                     <span
                         class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">{{ session('lang') == 'en' ? 'Catalog' : 'قوائم التعديل' }}</span>
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    <svg class="w-3 h-3 transition-transform duration-200" :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul x-show="open" x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="transition ease-in duration-150"
-                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                    @if (Route::currentRouteName() == 'product.index' ||
-                            Route::currentRouteName() == 'product.create' ||
-                            Route::currentRouteName() == 'product.edit')  @endif class=" py-2 space-y-2">
-                    <li class="bg-white rounded-lg">
-                        <a href="{{ route('storeSections.index') }}" wire:navigate
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">
-                            {{ session('lang') == 'en' ? 'Stores' : 'المتاجر' }}
-                        </a>
-                    </li>
-                    <li class="bg-white rounded-lg">
-                        <a href="{{ route('branch.index') }}" wire:navigate
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">{{ session('lang') == 'en' ? 'Branches' : 'افرع المتجر' }}</a>
-                    </li>
-                    <li class="bg-white rounded-lg">
-                        <a href="{{ route('category.index') }}" wire:navigate
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">{{ session('lang') == 'en' ? 'Categories' : 'التصنيفات' }}</a>
-                    </li>
-
-                    <li class="bg-white rounded-lg">
-                        <a href="{{ route('brand.index') }}" wire:navigate
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">{{ session('lang') == 'en' ? 'Brands' : 'العلامات التجارية' }}</a>
-                    </li>
-                    <li class="bg-white rounded-lg">
-                        <a href="{{ route('color.index') }}" wire:navigate
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">{{ session('lang') == 'en' ? 'Colors' : 'الالوان' }}</a>
-                    </li>
-                    <li class="bg-white rounded-lg">
-                        <a href="{{ route('size.index') }}" wire:navigate
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">{{ session('lang') == 'en' ? 'Sizes' : 'المقاسات' }}</a>
-                    </li>
-                    <li class="bg-white rounded-lg">
-                        <a href="{{ route('product.index') }}" wire:navigate
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">{{ session('lang') == 'en' ? 'Products' : 'المنتجات' }}</a>
-                    </li>
-                    <li class="bg-white rounded-lg">
-                        <a href="{{ route('order.index') }}" wire:navigate
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">{{ session('lang') == 'en' ? 'Orders' : 'الطلبات' }}</a>
-                    </li>
-                </ul>
+                <div class="relative">
+                    <ul x-show="open" 
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 transform -translate-y-2"
+                        x-transition:enter-end="opacity-100 transform translate-y-0"
+                        x-transition:leave="transition ease-in duration-150"
+                        x-transition:leave-start="opacity-100 transform translate-y-0"
+                        x-transition:leave-end="opacity-0 transform -translate-y-2"
+                        class="py-2 space-y-2 max-h-[calc(100vh-200px)] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-gray-400">
+                        <li class="bg-white rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('storeSections.index') }}" wire:navigate
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-200 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">
+                                {{ session('lang') == 'en' ? 'Stores' : 'المتاجر' }}
+                            </a>
+                        </li>
+                        <li class="bg-white rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('branch.index') }}" wire:navigate
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-200 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">
+                                {{ session('lang') == 'en' ? 'Branches' : 'افرع المتجر' }}
+                            </a>
+                        </li>
+                        <li class="bg-white rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('category.index') }}" wire:navigate
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-200 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">
+                                {{ session('lang') == 'en' ? 'Categories' : 'التصنيفات' }}
+                            </a>
+                        </li>
+                        <li class="bg-white rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('brand.index') }}" wire:navigate
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-200 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">
+                                {{ session('lang') == 'en' ? 'Brands' : 'العلامات التجارية' }}
+                            </a>
+                        </li>
+                        <li class="bg-white rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('color.index') }}" wire:navigate
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-200 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">
+                                {{ session('lang') == 'en' ? 'Colors' : 'الالوان' }}
+                            </a>
+                        </li>
+                        <li class="bg-white rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('size.index') }}" wire:navigate
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-200 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">
+                                {{ session('lang') == 'en' ? 'Sizes' : 'المقاسات' }}
+                            </a>
+                        </li>
+                        <li class="bg-white rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('product.index') }}" wire:navigate
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-200 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">
+                                {{ session('lang') == 'en' ? 'Products' : 'المنتجات' }}
+                            </a>
+                        </li>
+                        <li class="bg-white rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('order.index') }}" wire:navigate
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-200 rounded-lg pl-11 group hover:bg-gray-100 d:text-white d:hover:bg-gray-700">
+                                {{ session('lang') == 'en' ? 'Orders' : 'الطلبات' }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </div>

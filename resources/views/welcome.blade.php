@@ -18,23 +18,23 @@
 </head>
 
 <body class="font-sans antialiased">
-    
-    <div class="">
-      
- {{-- <livewire:pop-up-card /> --}}
-            <x-home.navbar :categories="$categories" :carousel="$carousel"  />
-            <x-home.speed-dial />
-            <x-home.carousel :carousel="$carousel" />
 
-            @foreach ($productViews as $view)
-                <br>
-                <livewire:product-group :view="$view" :title="$view->name">
-            @endforeach
+    <div class="">
+
+        <livewire:pop-up-card />
+        <x-home.navbar :categories="$categories" :carousel="$carousel" />
+        <x-home.speed-dial />
+        <x-home.carousel :carousel="$carousel" />
+
+        @foreach ($productViews as $view)
             <br>
-            <x-home.brands :brands="$brands" />
-            <br>
-            <br>
-            <x-home.footer :carousel="$carousel"/>
+            <livewire:product-group :view="$view"/>
+        @endforeach
+        <br>
+        <x-home.brands :brands="$brands" />
+        <br>
+        <br>
+        <x-home.footer :carousel="$carousel" />
     </div>
     </div>
     <x-section.scripts />

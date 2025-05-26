@@ -18,7 +18,7 @@ class ProductGroup extends Component
 
     public function mount($view)
     {
-        $this->title = $view->name;
+        $this->title = session('lang') == 'en' ? $view->name : $view->name_ar;
         $this->view = $view;
         $this->loadInitialProducts();
     }
