@@ -5,16 +5,6 @@
 
     <!-- SweetAlert Event Listeners -->
     <script>
-        window.addEventListener('toast:added', event => {
-            Swal.fire({
-                toast: true,
-                position: 'top',
-                icon: event.detail.icon || 'success',
-                title: event.detail.message || 'Item added to cart!',
-                showConfirmButton: false,
-                timer: 3000
-            });
-        });
 
         window.addEventListener('toast:wishlistAdd', event => {
             Swal.fire({
@@ -76,25 +66,25 @@
                         <!-- Quick View Button -->
                         <button wire:click="$dispatch('openQuickView', { productId: {{ $item->id }} })"
                             class="w-full bg-gradient-to-r from-blue-500 to-blue-400 text-white text-xs font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-500 hover:scale-105 transition-all duration-300 py-1.5">
-                            👁️ {{ session('lang') == 'en' ? 'Quick View' : 'نظرة سريعة' }}
-                        </button>
+                            <i class="fa fa-eye  px-1"></i> {{ session('lang') == 'en' ? 'Quick View' : 'نظرة سريعة' }}
+                        </button> 
 
                         <!-- Add to Cart -->
                         <button id="p-item-{{ $item->id }}" wire:click="addToCart({{ $item->id }})"
                             class="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 text-white text-xs font-semibold rounded-lg shadow-md hover:from-indigo-700 hover:to-indigo-600 hover:scale-105 transition-all duration-300 py-1.5">
-                            🛒 {{ session('lang') == 'en' ? 'Add to Cart' : 'أضف إلى السلة' }}
+                            <i class="fa fa-shopping-cart px-1"></i> {{ session('lang') == 'en' ? 'Add to Cart' : 'أضف إلى السلة' }}
                         </button>
 
                         <!-- Add to Fav -->
                         <button id="whishlist-{{ $item->id }}" wire:click="addToWishlist"
                             class="w-full bg-gradient-to-r from-pink-500 to-pink-400 text-white text-xs font-semibold rounded-lg shadow-md hover:from-pink-600 hover:to-pink-500 hover:scale-105 transition-all duration-300 py-1.5">
-                            ❤️ {{ session('lang') == 'en' ? 'Add to Favorites' : 'أضف إلى المفضلة' }}
+                            <i class="fa fa-heart px-1"></i>  {{ session('lang') == 'en' ? 'Add to Favorites' : 'أضف إلى المفضلة' }}
                         </button>
 
                         <!-- View Item -->
                         <button
                             class="w-full border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg shadow-sm hover:bg-gray-50 hover:scale-105 transition-all duration-300 py-1.5">
-                            <a href="{{ route('shop.show', $item->id) }}">🔍
+                            <a href="{{ route('shop.show', $item->id) }}"><i class="fa fa-ellipsis-h px-1"></i> 
                                 {{ session('lang') == 'en' ? 'View Details' : 'عرض التفاصيل' }}</a>
                         </button>
                     </div>

@@ -3,7 +3,7 @@
     @if (session('wishlist'))
         <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Wishlist</h2>
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">        {{ session('lang') == 'en' ? 'Wishlist' : 'قائمة منتجات المفضلة' }}</h2>
                 <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
                     {{-- Items Side Left --}}
                     <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
@@ -57,13 +57,15 @@
             </div>
         </section>
     @else
-    <div class="flex flex-col items-center justify-center min-h-[300px] text-center p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Your wishlist is currently empty</h2>
-        <p class="text-gray-600 mb-6">Start exploring and add items you love to your wishlist!</p>
-        <a href="/shop" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
-          Continue Shopping
-        </a>
-      </div>
+        <div class="flex flex-col items-center justify-center min-h-[300px] text-center p-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+                {{ session('lang') == 'en' ? 'Your wishlist is currently empty' : 'لا يوجد منتجات مفضلة !' }} </h2>
+            <p class="text-gray-600 mb-6">  {{ session('lang') == 'en' ? 'Start exploring and add items you love to your wishlist!' : 'ابدا بالتسوق الان و اختر ما تحب' }}</p>
+            <a href="/shop"
+                class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                  {{ session('lang') == 'en' ? 'Continue Shopping ' : 'تسوق هنا' }}
+            </a>
+        </div>
         @foreach ($productViews as $view)
             <br>
             <livewire:product-group :view="$view" :title="$view->name">

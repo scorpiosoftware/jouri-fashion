@@ -52,7 +52,9 @@ class OrderController extends Controller
         $inputs = $request->all();
         $order = new Order();
         $option = Option::first();
-        $twilio = new WhatsappSevice();
+
+        // Language detection
+        $isArabic = session('lang') == 'ar';
 
         if ($option) {
             $option->starter_number++;
@@ -60,6 +62,8 @@ class OrderController extends Controller
             $option = Option::first();
             $order->auto_nb = $option->order_letter . $option->starter_number;
         }
+
+    
 
         $totale = 0;
         $cart = session()->get('cart');
@@ -76,38 +80,83 @@ class OrderController extends Controller
         $order->apartment = $inputs['apartment'];
         $order->country = $inputs['country'];
         $order->city = $inputs['city'];
-        // $order->zip = $inputs['zip'];
         $order->status = 'pending';
         $order->save();
 
         if ($cart) {
             foreach (session('cart') as $id => $details) {
                 $item = new OrderItem();
-                $item->product_id = $id;
+                $item->product_id = $details['product_id'];
                 $item->order_id = $order->id;
                 $item->quantity = $details['quantity'];
                 $item->subtotal = $details['price'];
                 $item->save();
             }
         }
-        $message = "📦 New Orders:\n\n";
-        $message .= "👤 Customer Name: {$inputs['full_name']}\n";
-        $message .= "📞 Phone: {$inputs['phone']}\n";
-        $message .= "🏠 Street: {$inputs['street']}\n";
-        $message .= "🏢 Apartment: {$inputs['apartment']}\n";
-        $message .= "🌍 Country: {$inputs['country']}\n";
-        $message .= "🏙️ City: {$inputs['city']}\n";
-        $message .= "📦 Order Number: {$order->auto_nb}\n";
-        $message .= "💰 Total Amount: {$order->total_amount}\n";
-        $message .= "📦 Order Items:\n";
-        foreach (session('cart') as $id => $details) {
-            $message .= "🛍️ Product ID: {$id}\n";
-            $message .= "🔢 Quantity: {$details['quantity']}\n";
-            $message .= "💵 Subtotal: {$details['price']}\n";
+
+        // Multilingual message creation
+        if ($isArabic) {
+            $message = "📦 طلبات جديدة:\n\n";
+            $message .= "👤 اسم العميل: {$inputs['full_name']}\n";
+            $message .= "📞 الهاتف: {$inputs['phone']}\n";
+            $message .= "🏠 الشارع: {$inputs['street']}\n";
+            $message .= "🏢 الشقة: {$inputs['apartment']}\n";
+            $message .= "🌍 البلد: {$inputs['country']}\n";
+            $message .= "🏙️ المدينة: {$inputs['city']}\n";
+            $message .= "📦 رقم الطلب: {$order->auto_nb}\n";
+            $message .= "💰 المبلغ الإجمالي: {$order->total_amount}\n";
+            $message .= "📦 عناصر الطلب:\n";
+
+            foreach (session('cart') as $id => $details) {
+                $message .= "🛍️ معرف المنتج: {$details['product_id']}\n";
+                $message .= "🔢 الكمية: {$details['quantity']}\n";
+
+                // Add size if available
+                if (isset($details['size']) && !empty($details['size'])) {
+                    $message .= "📏 المقاس: {$details['size']['name']}\n";
+                }
+
+                // Add color if available
+                if (isset($details['color']) && !empty($details['color'])) {
+                    $message .= "🎨 اللون: {$details['color']['name']}\n";
+                }
+
+                $message .= "💵 المجموع الفرعي: {$details['price']}\n";
+                $message .= "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+            }
+        } else {
+            $message = "📦 New Orders:\n\n";
+            $message .= "👤 Customer Name: {$inputs['full_name']}\n";
+            $message .= "📞 Phone: {$inputs['phone']}\n";
+            $message .= "🏠 Street: {$inputs['street']}\n";
+            $message .= "🏢 Apartment: {$inputs['apartment']}\n";
+            $message .= "🌍 Country: {$inputs['country']}\n";
+            $message .= "🏙️ City: {$inputs['city']}\n";
+            $message .= "📦 Order Number: {$order->auto_nb}\n";
+            $message .= "💰 Total Amount: {$order->total_amount}\n";
+            $message .= "📦 Order Items:\n";
+
+            foreach (session('cart') as $id => $details) {
+                $message .= "🛍️ Product ID: {$details['product_id']}\n";
+                $message .= "🔢 Quantity: {$details['quantity']}\n";
+
+                // Add size if available
+                if (isset($details['size']) && !empty($details['size'])) {
+                    $message .= "📏 Size: {$details['size']['name']}\n";
+                }
+
+                // Add color if available
+                if (isset($details['color']) && !empty($details['color'])) {
+                    $message .= "🎨 Color: {$details['color']['name']}\n";
+                }
+
+                $message .= "💵 Subtotal: {$details['price']}\n";
+                $message .= "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+            }
         }
-        // $twilio->sendMessage(env('TWILIO_WHATSAPP_TO'), $message);
 
         session()->forget('cart');
+
         // URL-encode the message
         $encodedMessage = urlencode($message);
 
@@ -116,7 +165,11 @@ class OrderController extends Controller
 
         // Build WhatsApp redirect URL
         $whatsappURL = "https://wa.me/{$whatsappNumber}?text={$encodedMessage}";
-        return redirect()->to($whatsappURL)->with('success', 'nice !');
+
+        // Return with multilingual success message
+        $successMessage = $isArabic ? 'رائع!' : 'nice!';
+        info($message);
+        return redirect()->to($whatsappURL)->with('success', $successMessage);
     }
 
     /**

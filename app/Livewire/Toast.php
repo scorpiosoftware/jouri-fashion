@@ -16,7 +16,7 @@ class Toast extends Component
     {
         $this->message = $message;
         $this->visible = true;
-        dd($message);
+   
         // Auto-hide after 3 seconds
         $this->dispatchBrowserEvent('start-toast-timer');
     }

@@ -25,25 +25,28 @@
                 </button>
             </div>
 
-            <div class="swiper-wrapper">
-                @foreach ($images as $image)
-                    <div class="swiper-slide">
-                        <div class="relative group">
-                            <img src="{{ URL::to('storage/' . $image->image_url) }}" 
-                                class="w-full h-auto object-contain transform transition-transform duration-500 group-hover:scale-105"
-                                alt="Product image">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <!-- Swiper wrapper with proper structure -->
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    @foreach ($images as $image)
+                        <div class="swiper-slide">
+                            <div class="relative group">
+                                <img src="{{ URL::to('storage/' . $image->image_url) }}" 
+                                    class="w-full h-auto object-contain transform transition-transform duration-500 group-hover:scale-105"
+                                    alt="Product image">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
+
+                <!-- Navigation buttons -->
+                <div class="swiper-button-next custom-nav-button"></div>
+                <div class="swiper-button-prev custom-nav-button"></div>
+
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
             </div>
-
-            <!-- Navigation buttons -->
-            <div class="swiper-button-next !text-white/80 hover:!text-white transition-colors duration-300"></div>
-            <div class="swiper-button-prev !text-white/80 hover:!text-white transition-colors duration-300"></div>
-
-            <!-- Pagination -->
-            <div class="swiper-pagination !bottom-8"></div>
         </div>
     </div>
 </div>
@@ -57,37 +60,43 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .swiper-button-next,
-        .swiper-button-prev {
-            background: rgba(255, 255, 255, 0.1);
+        .custom-nav-button {
+            background: rgba(255, 255, 255, 0.1) !important;
             width: 50px !important;
             height: 50px !important;
-            border-radius: 50%;
+            border-radius: 50% !important;
             backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
+            transition: all 0.3s ease !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            z-index: 20 !important;
         }
 
-        .swiper-button-next:hover,
-        .swiper-button-prev:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
+        .custom-nav-button:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+            transform: scale(1.1) !important;
+            color: white !important;
         }
 
-        .swiper-button-next:after,
-        .swiper-button-prev:after {
+        .custom-nav-button:after {
             font-size: 20px !important;
+            font-weight: bold !important;
+        }
+
+        .swiper-pagination {
+            bottom: 2rem !important;
+            z-index: 20 !important;
         }
 
         .swiper-pagination-bullet {
             background: rgba(255, 255, 255, 0.5) !important;
-            opacity: 0.5;
-            transition: all 0.3s ease;
+            opacity: 0.5 !important;
+            transition: all 0.3s ease !important;
         }
 
         .swiper-pagination-bullet-active {
             background: white !important;
-            opacity: 1;
-            transform: scale(1.2);
+            opacity: 1 !important;
+            transform: scale(1.2) !important;
         }
 
         /* Disable selection globally for swiper elements */
@@ -102,18 +111,24 @@
         .swiper-button-next,
         .swiper-button-prev,
         .close-button {
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent !important;
+            outline: none !important;
+        }
+
+        /* Ensure proper positioning */
+        .swiper {
+            position: relative !important;
+            width: 100% !important;
+            height: 100% !important;
         }
 
         @media (max-width: 768px) {
-            .swiper-button-next,
-            .swiper-button-prev {
+            .custom-nav-button {
                 width: 40px !important;
                 height: 40px !important;
             }
             
-            .swiper-button-next:after,
-            .swiper-button-prev:after {
+            .custom-nav-button:after {
                 font-size: 16px !important;
             }
         }
@@ -128,37 +143,70 @@
 
             Livewire.on('swiperUpdated', (show) => {
                 if (show) {
+                    // Destroy existing instance
                     if (swiperInstance) {
-                        swiperInstance.destroy();
+                        swiperInstance.destroy(true, true);
+                        swiperInstance = null;
                     }
 
+                    // Wait for DOM to be ready
                     setTimeout(() => {
-                        swiperInstance = new Swiper('.swiper-container', {
-                            loop: true,
-                            effect: 'fade',
-                            fadeEffect: {
-                                crossFade: true
-                            },
-                            autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: false,
-                            },
-                            pagination: {
-                                el: '.swiper-pagination',
-                                clickable: true,
-                            },
-                            navigation: {
-                                nextEl: '.swiper-button-next',
-                                prevEl: '.swiper-button-prev',
-                            },
-                            keyboard: {
-                                enabled: true,
-                            },
-                            mousewheel: {
-                                sensitivity: 1,
-                            },
-                        });
-                    }, 100);
+                        const swiperElement = document.querySelector('.swiper');
+                        
+                        if (swiperElement) {
+                            swiperInstance = new Swiper('.swiper', {
+                                loop: true,
+                                effect: 'fade',
+                                fadeEffect: {
+                                    crossFade: true
+                                },
+                                autoplay: {
+                                    delay: 3000,
+                                    disableOnInteraction: false,
+                                },
+                                pagination: {
+                                    el: '.swiper-pagination',
+                                    clickable: true,
+                                    dynamicBullets: true,
+                                },
+                                navigation: {
+                                    nextEl: '.swiper-button-next',
+                                    prevEl: '.swiper-button-prev',
+                                },
+                                keyboard: {
+                                    enabled: true,
+                                    onlyInViewport: true,
+                                },
+                                mousewheel: {
+                                    sensitivity: 1,
+                                    forceToAxis: true,
+                                },
+                                // Additional options for better reliability
+                                observer: true,
+                                observeParents: true,
+                                watchSlidesProgress: true,
+                                watchSlidesVisibility: true,
+                            });
+
+                            // Debug: Log if swiper is initialized
+                            console.log('Swiper initialized:', swiperInstance);
+                        } else {
+                            console.error('Swiper element not found');
+                        }
+                    }, 200); // Increased timeout for better reliability
+                } else {
+                    // Clean up when hiding
+                    if (swiperInstance) {
+                        swiperInstance.destroy(true, true);
+                        swiperInstance = null;
+                    }
+                }
+            });
+
+            // Clean up on page unload
+            window.addEventListener('beforeunload', () => {
+                if (swiperInstance) {
+                    swiperInstance.destroy(true, true);
                 }
             });
         });

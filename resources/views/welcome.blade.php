@@ -13,11 +13,15 @@
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-M7Vz+vGx0cNuD5cE44iRTGPKxZMXO3cgxR2RTW0QuU">
+
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans
+        antialiased">
 
     <div class="">
 
@@ -28,7 +32,7 @@
 
         @foreach ($productViews as $view)
             <br>
-            <livewire:product-group :view="$view"/>
+            <livewire:product-group :view="$view" />
         @endforeach
         <br>
         <x-home.brands :brands="$brands" />
