@@ -63,7 +63,7 @@ class OrderController extends Controller
             $order->auto_nb = $option->order_letter . $option->starter_number;
         }
 
-    
+
 
         $totale = 0;
         $cart = session()->get('cart');
@@ -100,7 +100,8 @@ class OrderController extends Controller
             $message .= "👤 اسم العميل: {$inputs['full_name']}\n";
             $message .= "📞 الهاتف: {$inputs['phone']}\n";
             $message .= "🏠 الشارع: {$inputs['street']}\n";
-            $message .= "🏢 الشقة: {$inputs['apartment']}\n";
+            $message .= "🗺️ المحافظة: {$inputs['apartment']}\n";
+
             $message .= "🌍 البلد: {$inputs['country']}\n";
             $message .= "🏙️ المدينة: {$inputs['city']}\n";
             $message .= "📦 رقم الطلب: {$order->auto_nb}\n";
@@ -129,7 +130,7 @@ class OrderController extends Controller
             $message .= "👤 Customer Name: {$inputs['full_name']}\n";
             $message .= "📞 Phone: {$inputs['phone']}\n";
             $message .= "🏠 Street: {$inputs['street']}\n";
-            $message .= "🏢 Apartment: {$inputs['apartment']}\n";
+            $message .= "🗺️ Province: {$inputs['apartment']}\n";
             $message .= "🌍 Country: {$inputs['country']}\n";
             $message .= "🏙️ City: {$inputs['city']}\n";
             $message .= "📦 Order Number: {$order->auto_nb}\n";
@@ -168,7 +169,7 @@ class OrderController extends Controller
 
         // Return with multilingual success message
         $successMessage = $isArabic ? 'رائع!' : 'nice!';
-        info($message);
+
         return redirect()->to($whatsappURL)->with('success', $successMessage);
     }
 
