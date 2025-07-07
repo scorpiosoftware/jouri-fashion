@@ -9,18 +9,20 @@
             Swal.fire({
                 toast: true,
                 position: 'top',
-                icon: event.detail.icon || 'success',
-                title: event.detail.message || 'Item added to wishlist!',
+                icon: event.detail[0].icon || 'success',
+                title: event.detail[0].message || 'Item added to wishlist!',
                 showConfirmButton: false,
                 timer: 3000
             });
         });
-                window.addEventListener('toast:added', event => {
+        window.addEventListener('toast:added', event => {
+            console.log();
+            
             Swal.fire({
                 toast: true,
                 position: 'top',
-                icon: event.detail.icon || 'success',
-                title: event.detail.message || 'Item added to card!',
+                icon: event.detail[0].icon || 'success',
+                title: event.detail[0].message,
                 showConfirmButton: false,
                 timer: 3000
             });
@@ -28,21 +30,20 @@
     </script>
 
     {{-- product-image w-[350px] h-[350px] relative [transform-style:preserve-3d] transition-transform duration-500 group-hover:[transform:rotateY(180deg)] --}}
-    <div
-        class="product-image w-[350px] h-[350px] relative">
+    <div class="product-image w-[350px] h-[350px] relative">
         <!-- Front of card -->
         <div class="absolute inset-0 w-full h-full ">
             <a name="{{ $item->id }}" href="{{ route('shop.show', $item->id) }}" class="image block w-full h-full">
                 <div class="box-border aspect-square w-full overflow-hidden flex items-center justify-center">
                     <img src="{{ URL::to('storage/' . $item->main_image_url) }}"
-                        class="max-w-full max-h-full p-3 object-contain aspect-square bg-white" alt="{{ $item->name }}">
+                        class="max-w-full max-h-full p-3 object-contain aspect-square bg-white"
+                        alt="{{ $item->name }}">
                 </div>
             </a>
         </div>
 
         <!-- Back of card -->
-        <div
-            class="absolute inset-0 flex items-center justify-center  ">
+        <div class="absolute inset-0 flex items-center justify-center  ">
             <div class="aspect-square w-[200px] h-[300px]">
                 <div
                     class="product-content flex flex-col items-center justify-between bg-transparent opacity-0 transition-opacity duration-300 hover:opacity-100  rounded-2xl shadow-xl p-4 h-full border border-gray-100">

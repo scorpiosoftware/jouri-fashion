@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\helpers\TranslationHelper;
 use App\Models\Product as ModelsProduct;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
@@ -26,9 +27,9 @@ class Product extends Component
         if (!$product) {
             abort(404);
         }
-        
+        $success = session('lang') == 'en' ? 'Product added to cart!' : 'تمت إضافة المنتج إلى السلة!';
         $this->dispatch('toast:added', [
-            'message' => 'Product added to cart!',
+            'message' => $success ,
             'icon' => 'success'
         ]);
         
@@ -86,8 +87,9 @@ class Product extends Component
 
     public function addToWishlist()
     {
+        $success = session('lang') == 'en' ?'Product added to wishlist!' : 'تمت اضافة المنتج';
         $this->dispatch('toast:wishlistAdd', [
-            'message' => 'Product added to wishlist!',
+            'message' => $success,
             'icon' => 'success'
         ]);
     }

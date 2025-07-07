@@ -13,8 +13,8 @@
                 Swal.fire({
                     toast: true,
                     position: 'top',
-                    icon: event.detail.icon || 'success',
-                    title: event.detail.message || 'Item removed!',
+                    icon: event.detail[0].icon || 'success',
+                    title: event.detail[0].message || 'Item removed!',
                     showConfirmButton: false,
                     timer: 3000
                 });

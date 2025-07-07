@@ -54,8 +54,9 @@ class Heart extends Component
                     "photo" => $product->main_image_url
                 ];
             $this->isFavorited = true;
+            $success = session('lang') == 'en' ?'Product added to wishlist!' : 'تمت اضافة المنتج';
             $this->dispatch('toast:added', [
-                'message' => 'Product added to wishlist!',
+                'message' => $success,
                 'icon' => 'success'
             ]);
             session()->put('wishlist', $wishlist);
@@ -66,8 +67,9 @@ class Heart extends Component
 
                 session()->put('wishlist', $wishlist);
                 $this->isFavorited = false;
+                 $success = session('lang') == 'en' ?'Product removed from wishlist!' : 'تمت ازالة المنتج';
                 $this->dispatch('toast:removed', [
-                    'message' => 'Product removed from wishlist!',
+                    'message' => $success,
                     'icon' => 'success'
                 ]);
             }

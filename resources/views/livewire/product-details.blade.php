@@ -4,8 +4,8 @@
             Swal.fire({
                 toast: true,
                 position: 'top',
-                icon: event.detail.icon || 'success',
-                title: event.detail.message || 'Item added to cart!',
+                icon: event.detail[0].icon || 'success',
+                title: event.detail[0].message || 'Item added to cart!',
                 showConfirmButton: false,
                 timer: 3000
             });

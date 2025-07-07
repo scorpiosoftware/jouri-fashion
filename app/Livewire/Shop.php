@@ -29,13 +29,20 @@ class Shop extends Component
      */
     public function mount(): void
     {
-        $this->categories = Category::all();
+        
         $this->listProducts();
     }
 
     /**
      * List products based on filters
      */
+
+     public function updatedSort($value){
+
+        info($value);
+
+     }
+
     #[On('apply')]
     public function listProducts(): void
     {
@@ -46,10 +53,9 @@ class Shop extends Component
     /**
      * Build the product query with all filters
      */
-    private function buildProductQuery()
+    public function buildProductQuery()
     {
         $query = Product::query();
-
         // Apply category filter
         if (!empty($this->category)) {
             $query->whereHas('categories', function ($subQuery) {
@@ -57,6 +63,7 @@ class Shop extends Component
             });
         }
 
+      
         // Apply sorting
         $query = $this->applySorting($query);
 
@@ -111,6 +118,7 @@ class Shop extends Component
      */
     public function render()
     {
+        $this->categories = Category::all();
         return view('livewire.shop');
     }
 }

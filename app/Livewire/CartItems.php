@@ -16,8 +16,9 @@ class CartItems extends Component
             unset($cart[$id]);
             session()->put('cart', $cart);
             $this->dispatch('refreshCart');
+                $success = session('lang') == 'en' ? 'Product Removed!' : 'تمت ازالة المنتج من السلة!';
             $this->dispatch('toast:remove', [
-                'message' => 'Product Removed!',
+                'message' => $success,
                 'icon' => 'success'
             ]);
         }
