@@ -385,4 +385,5 @@
     <nav aria-label="Page navigation example" class="p-4 w-1/4 mx-auto">
         {{ $products->links() }}
     </nav>
+    <livewire:quick-view-product />
 @endsection
