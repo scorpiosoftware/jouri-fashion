@@ -4,7 +4,7 @@
         <a href="/shop" class="text-white font-bold text-base md:text-xl">{{ session('lang') == 'en' ? 'Shop Now !' : '!تسوق الان' }}</a>
     </div>
     <!-- Carousel wrapper -->
-    <div class="relative h-32 overflow-hidden rounded-lg md:h-[600px]  mx-auto">
+    <div class="relative h-32 overflow-hidden rounded-lg md:h-[800px]  mx-auto">
         <!-- Item 1 -->
         @foreach ($carousel->images as $image)
             <div class="hidden duration-700 ease-in-out image-container" data-carousel-item>

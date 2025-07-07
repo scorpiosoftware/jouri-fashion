@@ -11,7 +11,7 @@
                 <p class="mt-0.5 truncate text-sm font-normal text-black">
                     د.ع {{ $details['price'] }}</p>
                 <div class="flex items-end justify-end gap-6">
-                    <p class="text-sm font-normal leading-none text-black">Qty:
+                    <p class="text-sm font-normal leading-none text-black">{{session('lang') == 'en' ? 'QTY' : 'عدد'}} : 
                         {{ $details['quantity'] }}</p>
                     <div class="">
                         <button wire:click='removeItem({{ $id }})' data-tooltip-target="tooltipRemoveItem1a"

@@ -59,7 +59,7 @@
                                                                 stroke-linejoin="round" stroke-width="2"
                                                                 d="M6 18 17.94 6M18 18 6.06 6" />
                                                         </svg>
-                                                        {{ \App\Helpers\TranslationHelper::translate('Remov','ar') }}
+                                                        {{ \App\Helpers\TranslationHelper::translate('Remove','ar') }}
                                                     </button>
 
                                                 </form>

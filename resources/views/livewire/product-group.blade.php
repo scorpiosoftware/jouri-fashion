@@ -1,4 +1,4 @@
-<div x-data="{ show: true }" class="md:mx-auto w-full md:max-w-4xl px-4">
+<div x-data="{ show: true }" class="md:mx-auto w-full md:max-w-6xl px-4">
     <div @click="show = !show"
         class="group flex items-center justify-between p-4 mb-6 rounded-lg bg-gradient-to-r from-slate-100 to-slate-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
         <h2 class="text-2xl font-bold text-gray-800">{{ $title }}</h2>
