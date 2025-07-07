@@ -172,9 +172,13 @@
     <div class="border p-2">
         <h1>{{ session('lang') == 'en' ? 'Price I.Q.D' : 'السعر د.ع' }}</h1>
         <div class="flex space-x-2 justify-between items-center ">
+            <label class="inline-block text-start w-full text-sm text-gray-600"
+                for="Multiselect">{{ session('lang') == 'en' ? 'maximum' : 'السعر الادنى' }}</label>
             <input type="number" step="any" min="0" class="w-24 h-8" name="min_price"
                 placeholder="{{ session('lang') == 'en' ? 'From' : 'من' }}"
                 @if (!empty(request()->input('min_price'))) value = {{ request()->input('min_price') }} @endif />
+            <label class="inline-block text-start w-full text-sm text-gray-600"
+                for="Multiselect">{{ session('lang') == 'en' ? 'minumum' : 'السعر الاقصى' }}</label>
             <input type="number" step="any" min="0" class="w-24 h-8" name="max_price"
                 placeholder="{{ session('lang') == 'en' ? 'To' : 'الى' }}"
                 @if (!empty(request()->input('max_price'))) value = {{ request()->input('max_price') }} @endif />
@@ -241,50 +245,50 @@
                     </div>
                 </div>
         </div> --}}
-        <div class="border p-2">
-            <div class="border p-2">
-                <h1>{{ session('lang') == 'en' ? 'Categories' : 'فئات' }}</h1>
-                @foreach ($categories as $cat)
-                    <div class="flex items-center">
-                        <input id="categories" type="checkbox" value="{{ $cat->id }}"
-                            name="categories[] class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
-                            focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2
-                            dark:bg-gray-700 dark:border-gray-600"
-                            @if (!empty(request()->input('categories'))) @foreach (request()->input('categories') as $index)
+                <div class="border p-2">
+                    <div class="border p-2">
+                        <h1>{{ session('lang') == 'en' ? 'Categories' : 'فئات' }}</h1>
+                        @foreach ($categories as $cat)
+                            <div class="flex items-center">
+                                <input id="categories" type="checkbox" value="{{ $cat->id }}"
+                                    name="categories[] class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                                    focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2
+                                    dark:bg-gray-700 dark:border-gray-600"
+                                    @if (!empty(request()->input('categories'))) @foreach (request()->input('categories') as $index)
                                     @if ($index == $cat->id)
                                     checked
                                     @break @endif
-                            @endforeach
-                @endif
-                >
-                <label for="categories"
-                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ session('lang') == 'en' ? $cat->name_en : $cat->name_ar }}</label>
+                                    @endforeach
+                        @endif
+                        >
+                        <label for="categories"
+                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ session('lang') == 'en' ? $cat->name_en : $cat->name_ar }}</label>
 
-            </div>
-            @endforeach
+                    </div>
+                    @endforeach
+                </div>
         </div>
-    </div>
 
-    <div class="border p-2">
         <div class="border p-2">
-            <h1>{{ session('lang') == 'en' ? 'Brands' : 'العلامات التجارية' }}</h1>
-            @foreach ($brands as $brand)
-                <div class="flex items-center">
-                    <input id="brands" type="checkbox" value="{{ $brand->id }}" name="brands[] class="w-4 h-4
-                        text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600
-                        dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        @if (!empty(request()->input('brands'))) @foreach (request()->input('brands') as $b)
+            <div class="border p-2">
+                <h1>{{ session('lang') == 'en' ? 'Brands' : 'العلامات التجارية' }}</h1>
+                @foreach ($brands as $brand)
+                    <div class="flex items-center">
+                        <input id="brands" type="checkbox" value="{{ $brand->id }}" name="brands[] class="w-4 h-4
+                            text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600
+                            dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            @if (!empty(request()->input('brands'))) @foreach (request()->input('brands') as $b)
                                     @if ($b == $brand->id)
                                     checked
                                     @break @endif
-                        @endforeach
-            @endif>
+                            @endforeach
+                @endif>
 
-            <label for="brands"
-                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ session('lang') == 'en' ? $brand->name_en : $brand->name_ar }}</label>
+                <label for="brands"
+                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ session('lang') == 'en' ? $brand->name_en : $brand->name_ar }}</label>
+            </div>
+            @endforeach
         </div>
-        @endforeach
-    </div>
 
     </div>
 
@@ -333,8 +337,12 @@
     <div class="border p-2">
         <h1>{{ session('lang') == 'en' ? 'Price I.Q.D' : 'السعر د.ع' }}</h1>
         <div class="flex space-x-2 justify-between items-center">
+            <label class="inline-block text-start w-full text-sm text-gray-600"
+                for="Multiselect">{{ session('lang') == 'en' ? 'maximum' : 'السعر الادنى' }}</label>
             <input type="number" step="any" min="0" class="w-24 h-8" name="min_price" placeholder=""
                 @if (!empty(request()->input('min_price'))) value = {{ request()->input('min_price') }} @endif />
+            <label class="inline-block text-start w-full text-sm text-gray-600"
+                for="Multiselect">{{ session('lang') == 'en' ? 'minumum' : 'السعر الاقصى' }}</label>
             <input type="number" step="any" min="0" class="w-24 h-8" name="max_price" placeholder=""
                 @if (!empty(request()->input('max_price'))) value = {{ request()->input('max_price') }} @endif />
         </div>
