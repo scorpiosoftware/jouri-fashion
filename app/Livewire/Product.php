@@ -22,31 +22,32 @@ class Product extends Component
             'quantity' => $quantity,
             'time' => now()->toDateTimeString()
         ]);
-        
+
         $product = ModelsProduct::find($id);
         if (!$product) {
             abort(404);
         }
         $success = session('lang') == 'en' ? 'Product added to cart!' : 'تمت إضافة المنتج إلى السلة!';
         $this->dispatch('toast:added', [
-            'message' => $success ,
+            'message' => $success,
             'icon' => 'success'
         ]);
-        
+
         $cart = session()->get('cart');
         $price = $product->price;
         $color = $product->colors->first();
         $size = $product->sizes->first();
-        
+
         if (!empty($product->offer_price) || $product->offer_price > 0) {
             $price = $product->offer_price;
         }
-        
+
         $p_name = session('lang') == 'en' ? $product->name_en : $product->name_ar;
-        
+
         if (!$cart) {
             $cart = [
                 $id => [
+                    "product_id" => $product->id,
                     "name" => $p_name,
                     "quantity" => (int)$quantity,
                     "price" => $price * (int)$quantity,
@@ -71,6 +72,7 @@ class Product extends Component
         }
 
         $cart[$id] = [
+            "product_id" => $product->id,
             "name" => $p_name,
             "quantity" => (int)$quantity,
             "price" => $price * (int)$quantity,
@@ -87,7 +89,7 @@ class Product extends Component
 
     public function addToWishlist()
     {
-        $success = session('lang') == 'en' ?'Product added to wishlist!' : 'تمت اضافة المنتج';
+        $success = session('lang') == 'en' ? 'Product added to wishlist!' : 'تمت اضافة المنتج';
         $this->dispatch('toast:wishlistAdd', [
             'message' => $success,
             'icon' => 'success'

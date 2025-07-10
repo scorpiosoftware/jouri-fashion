@@ -109,7 +109,7 @@ class OrderController extends Controller
             $message .= "📦 عناصر الطلب:\n";
 
             foreach (session('cart') as $id => $details) {
-                $message .= "🛍️ معرف المنتج: {$details['product_id']}\n";
+                $message .= "🛍️ اسم المنتج: {$details['name']}\n";
                 $message .= "🔢 الكمية: {$details['quantity']}\n";
 
                 // Add size if available
@@ -138,7 +138,7 @@ class OrderController extends Controller
             $message .= "📦 Order Items:\n";
 
             foreach (session('cart') as $id => $details) {
-                $message .= "🛍️ Product ID: {$details['product_id']}\n";
+                $message .= "🛍️ Product name: {$details['name']}\n";
                 $message .= "🔢 Quantity: {$details['quantity']}\n";
 
                 // Add size if available

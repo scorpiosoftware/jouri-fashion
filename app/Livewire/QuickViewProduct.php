@@ -47,33 +47,34 @@ class QuickViewProduct extends Component
 
     #[On('add-item-to-cart')]
     public function addItemToCart($id, $quantity = 1)
-    {    
-        $product =Product::find($id);
+    {
+        $product = Product::find($id);
         if (!$product) {
             abort(404);
         }
-        
+
         // Add to cart logic here
         $this->dispatch('toast:added', [
             'message' => session('lang') == 'en' ? 'Product added to cart!' : 'تمت إضافة المنتج إلى السلة!',
             'icon' => 'success'
         ]);
-       
-        
+
+
         $cart = session()->get('cart');
         $price = $product->price;
         $color = $product->colors->first();
         $size = $product->sizes->first();
-        
+
         if (!empty($product->offer_price) || $product->offer_price > 0) {
             $price = $product->offer_price;
         }
-        
+
         $p_name = session('lang') == 'en' ? $product->name_en : $product->name_ar;
-        
+
         if (!$cart) {
             $cart = [
                 $id => [
+                    "product_id" => $product->id,
                     "name" => $p_name,
                     "quantity" => (int)$quantity,
                     "price" => $price * (int)$quantity,
@@ -98,6 +99,7 @@ class QuickViewProduct extends Component
         }
 
         $cart[$id] = [
+            "product_id" => $product->id,
             "name" => $p_name,
             "quantity" => (int)$quantity,
             "price" => $price * (int)$quantity,
