@@ -57,7 +57,7 @@
                 <div>
                     <label for="code"
                         class="block mb-2 text-sm font-medium text-gray-900 d:text-white">{{ session('lang') == 'en' ? 'code' : 'الرمز' }}</label>
-                    <input type="text" id="code" value="" name="code"
+                    <input type="text" id="code" value="{{ $randomCode }}" name="code"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 d:bg-gray-700 d:border-gray-600 d:placeholder-gray-400 d:text-white d:focus:ring-blue-500 d:focus:border-blue-500"
                         placeholder="" required />
                 </div>

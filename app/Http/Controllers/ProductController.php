@@ -42,7 +42,8 @@ class ProductController extends Controller
         $brands = ListBrand::execute();
         $sections = StoreSections::all();
         $colors = Color::all();
-        return view("dashboard.product.create", compact('categories', 'brands', 'sections', 'colors', 'sizes'));
+        $randomCode = Str::random(24);
+        return view("dashboard.product.create", compact('categories', 'brands', 'sections', 'colors', 'sizes','randomCode'));
     }
 
     /**

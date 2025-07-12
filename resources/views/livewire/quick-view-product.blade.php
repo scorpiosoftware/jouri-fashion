@@ -121,7 +121,7 @@
                                 class="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:from-indigo-700 hover:to-indigo-600 transition-all duration-300">
                             🛒 {{ session('lang') == 'en' ? 'Add to Cart' : 'أضف إلى السلة' }}
                         </button>
-                        <a href="{{ route('shop.show', $product->id) }}"
+                        <a href="{{ route('shop.show', ['id' => $product->id, 'slug' =>Str::slug($product->name_en)]) }}"
                            class="w-full text-center border border-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg shadow-sm hover:bg-gray-50 transition-all duration-300">
                             🔍 {{ session('lang') == 'en' ? 'View Full Details' : 'عرض التفاصيل الكاملة' }}
                         </a>

@@ -22,18 +22,21 @@ class ShopController extends Controller
     /**
      * Display a listing of the resource.
      */
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         $inputs = $request->all();
         $request->visit();
-        $products = ListProduct::execute($inputs);
         $categories = ListCategory::execute();
+        $products = ListProduct::execute($inputs);
         $brands = Brand::all();
         $sections = StoreSections::all();
         $branches = Branch::all();
         $colors = Color::all();
         $carousel = Carousel::with('images')->first();
-        return view('shop.index', compact('categories', 'brands', 'inputs', 'carousel', 'sections', 'branches', 'colors','products'));
+        return view('shop.index', compact('categories', 'brands', 'inputs', 'carousel', 'sections', 'branches', 'colors', 'products'));
     }
 
     public function addComment(Request $request)
@@ -72,19 +75,21 @@ class ShopController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, string $slug)
     {
         $record = GetProduct::execute($id);
+
+        // Rest of your existing code...
         $comments = new ProductComments();
         $comments = $comments->where('product_id', $record->id)->get();
 
         $total_rates = $comments->sum('rate');
-
-
         $product_rate = $comments->count() > 0 ? ($total_rates / $comments->count()) : 0;
+
         $cart = session()->get('cart');
         $categories = Category::all();
         $carousel = Carousel::with('images')->first();
+
         return view("shop.show", compact("record", 'categories', 'cart', 'comments', 'product_rate', 'carousel'));
     }
 
@@ -115,7 +120,7 @@ class ShopController extends Controller
     public function filter(Request $request)
     {
         $inputs = $request->all();
-        // dd($inputs);
+
         $products = ListProduct::execute($inputs);
         $categories = ListCategory::execute();
         $brands = Brand::all();
@@ -124,6 +129,6 @@ class ShopController extends Controller
         $branches = Branch::all();
         $carousel = Carousel::with('images')->first();
         $request->visit();
-        return view('shop.index', compact('categories', 'brands', 'inputs', 'carousel', 'sections', 'branches', 'colors','products'));
+        return view('shop.index', compact('categories', 'brands', 'inputs', 'carousel', 'sections', 'branches', 'colors', 'products'));
     }
 }

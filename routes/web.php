@@ -32,28 +32,30 @@ use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
-Route::get('/lang/{locale}',function(string $locale){
+Route::get('/lang/{locale}', function (string $locale) {
     session()->forget('lang');
-    session()->put('lang',$locale);
+    session()->put('lang', $locale);
     return redirect()->back();
 });
 
 Route::group(['prefix' => ''], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::resource('shop', ShopController::class);
+    Route::get('/shop/{id}/{slug}', [ShopController::class, 'show'])
+        ->name('shop.show');
     Route::get('/show-cart/address', [OrderController::class, 'create'])->name('address');
     Route::resource('order', OrderController::class);
-    Route::post('/contactUs/send', [InboxController::class,'store'])->name('send-comment');
-    Route::post('/shop/send', [ShopController::class,'addComment'])->name('add-review');
-    Route::get('/contactUs',function(){
+    Route::post('/contactUs/send', [InboxController::class, 'store'])->name('send-comment');
+    Route::post('/shop/send', [ShopController::class, 'addComment'])->name('add-review');
+    Route::get('/contactUs', function () {
         $carousel = Carousel::with('images')->first();
         $categories = ListCategory::execute();
-        return view('support.contact',compact('categories','carousel'));
+        return view('support.contact', compact('categories', 'carousel'));
     });
-    Route::get('/privacy-policy',function (){
+    Route::get('/privacy-policy', function () {
         $carousel = Carousel::with('images')->first();
         $categories = ListCategory::execute();
-        return view('support.privacy',compact('categories','carousel'));
+        return view('support.privacy', compact('categories', 'carousel'));
     });
 });
 

@@ -5,7 +5,7 @@
     wire:key="product-{{ $item->id }}">
     
     <div class="product-image relative overflow-hidden">
-        <a name="{{ $item->id }}" href="{{ route('shop.show', $item->id) }}" class="image block">
+        <a name="{{ $item->id }}" href="{{ route('shop.show', ['id' => $item->id, 'slug' => Str::slug($item->name_en)]) }}" class="image block">
             <div class="image-container relative overflow-hidden">
                 <div class="skeleton-loader min-h-36 animate-pulse bg-gray-200"></div>
                 <img src="{{ URL::to('storage/' . $item->main_image_url) }}" 
@@ -45,12 +45,8 @@
                 </button>
             </li>
 
-            <li>
-                <a href="{{ route('shop.show', $item->id) }}" 
-                   class="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-lg transition-all duration-300 hover:bg-[#ec5793] hover:text-white" 
-                   data-tip="Quick View">
-                    <i class="fa fa-search"></i>
-                </a>
+         <li><a href="{{ route('shop.show', ['id' => $item->id, 'slug' => Str::slug($item->name_en)]) }}"
+                    data-tip="Quick View"><i class="fa fa-search"></i></a>
             </li>
         </ul>
     </div>

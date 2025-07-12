@@ -33,11 +33,11 @@
     <div class="product-image w-[350px] h-[350px] relative">
         <!-- Front of card -->
         <div class="absolute inset-0 w-full h-full ">
-            <a name="{{ $item->id }}" href="{{ route('shop.show', $item->id) }}" class="image block w-full h-full">
+            <a name="{{ $item->id }}" href="{{ route('shop.show', ['id' => $item->id, 'slug' => Str::slug($item->name_en)]) }}"     class="image block w-full h-full">
                 <div class="box-border aspect-square w-full overflow-hidden flex items-center justify-center">
                     <img src="{{ URL::to('storage/' . $item->main_image_url) }}"
                         class="max-w-full max-h-full p-3 object-contain aspect-square bg-white"
-                        alt="{{ $item->name }}">
+                        alt="{{ $item->name }}" loading="lazy" lazy>
                 </div>
             </a>
         </div>
@@ -97,7 +97,7 @@
                         <!-- View Item -->
                         <button
                             class="w-full border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg shadow-sm hover:bg-gray-50 hover:scale-105 transition-all duration-300 py-1.5">
-                            <a href="{{ route('shop.show', $item->id) }}"><i class="fa fa-ellipsis-h px-1"></i>
+                            <a href="{{ route('shop.show', ['id' => $item->id, 'slug' => Str::slug($item->name_en)]) }}"><i class="fa fa-ellipsis-h px-1"></i>
                                 {{ session('lang') == 'en' ? 'View Details' : 'عرض التفاصيل' }}</a>
                         </button>
                     </div>
