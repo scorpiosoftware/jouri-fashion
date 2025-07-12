@@ -162,11 +162,10 @@ class OrderController extends Controller
         $encodedMessage = urlencode($message);
 
         // Your WhatsApp number in international format (no + or 00)
-        $whatsappNumber = "+96171036488";
+        $whatsappNumber = "+9647833999344";
 
         // Build WhatsApp redirect URL
         $whatsappURL = "https://wa.me/{$whatsappNumber}?text={$encodedMessage}";
-
         // Return with multilingual success message
         $successMessage = $isArabic ? 'رائع!' : 'nice!';
 
