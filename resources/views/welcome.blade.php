@@ -24,7 +24,7 @@
         antialiased">
 
     <div class="">
-
+        @livewire('ads-modal')
         <livewire:pop-up-card />
         <x-home.navbar :categories="$categories" :carousel="$carousel" />
         <x-home.speed-dial />

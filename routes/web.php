@@ -35,10 +35,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/lang/{locale}', function (string $locale) {
     session()->forget('lang');
     session()->put('lang', $locale);
+   
+    App::setLocale(session('lang'));
     return redirect()->back();
 });
 
 Route::group(['prefix' => ''], function () {
+     App::setLocale(session('lang'));
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::resource('shop', ShopController::class);
     Route::get('/shop/{id}/{slug}', [ShopController::class, 'show'])

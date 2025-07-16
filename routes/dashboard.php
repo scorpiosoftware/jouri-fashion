@@ -15,9 +15,11 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\StoreSectionController;
 use Illuminate\Routing\Route as RoutingRoute;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
+
     Route::resource('dashboard', DashboardController::class);
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
@@ -32,6 +34,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
     Route::resource('branch', BranchController::class);
     Route::resource('color', ColorController::class);
     Route::resource('size', SizeController::class);
-    Route::post("/branch/section/{id}",[BranchController::class,'createWithSection'])->name('branch.createSelectedSection');
+    Route::post("/branch/section/{id}", [BranchController::class, 'createWithSection'])->name('branch.createSelectedSection');
     Route::delete('/branch/{id}/delete', [BranchController::class, 'destroy']);
+
+    Route::get('/ads', function () {
+        
+        return view('dashboard.ads.index');
+    })->name('ads.index');
 });
